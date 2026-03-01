@@ -15,8 +15,23 @@ Website sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CD
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/username/nama-repository.git
+https://github.com/adrianwirawicaksana/ramadan-coding.git
 
-``` 
+```
 
-test
+### 2️⃣ Masuk ke Folder Project
+
+```bash
+cd nama-repository
+cd misi-1
+
+```
+
+### 3️⃣ Jalankan Project
+
+```bash
+start index.html   # Windows
+open index.html    # Mac
+xdg-open index.html # Linux
+
+```
