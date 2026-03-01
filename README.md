@@ -35,3 +35,5 @@ open index.html    # Mac
 xdg-open index.html # Linux
 
 ```
+
+### Terima Kasih
