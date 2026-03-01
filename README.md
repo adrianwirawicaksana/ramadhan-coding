@@ -25,21 +25,19 @@ Buka Terminal / Git Bash:
 ```bash
 git clone https://github.com/username/nama-repository.git
 
-2️⃣ Masuk ke Folder Project
+---
+
+### 2️⃣ Masuk ke Folder Project
+
 cd nama-repository
 cd misi-1
-3️⃣ Jalankan Project
 
-Karena project ini berbasis HTML (tanpa backend & tanpa npm), cukup buka file:
+---
 
-start index.html
+### 3️⃣ Jalankan Project
 
-Jika menggunakan Mac/Linux:
+---
 
-open index.html
+📌 Cara Membuka
 
-Atau bisa juga dengan cara:
-
-Klik dua kali file index.html
-
-Klik kanan → Open with Live Server (jika menggunakan VS Code)
+Windows
