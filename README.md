@@ -36,4 +36,4 @@ xdg-open index.html # Linux
 
 ```
 
-### Terima Kasih
+## Terima Kasih
