@@ -22,7 +22,7 @@ https://github.com/adrianwirawicaksana/ramadan-coding.git
 ### 2️⃣ Masuk ke Folder Project
 
 ```bash
-cd nama-repository
+cd ramadan-coding
 cd misi-1
 
 ```
