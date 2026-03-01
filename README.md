@@ -1,4 +1,4 @@
-# 🌙 Ramadan Coding 
+# 🌙 Ramadan Coding Project
 
 Website sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CDN), dan JavaScript.
 
