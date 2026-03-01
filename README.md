@@ -15,7 +15,7 @@ Website sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CD
 ### 1️⃣ Clone Repository
 
 ```bash
-https://github.com/adrianwirawicaksana/ramadan-coding.git
+git clone https://github.com/adrianwirawicaksana/ramadan-coding.git
 
 ```
 
