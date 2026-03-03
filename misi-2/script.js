@@ -93,6 +93,7 @@ function zikirBuildBeads() {
 
 function zikirUpdateBeads() {
     const totalBeads = Math.min(zikirTarget, BEAD_MAX);
+    const currentCycle = zikirCount % zikirTarget;
 
     for (let i = 0; i < totalBeads; i++) {
         const bead = document.getElementById("zb-" + i);
@@ -103,7 +104,7 @@ function zikirUpdateBeads() {
                 ? Math.round((i + 1) * zikirTarget / BEAD_MAX)
                 : i + 1;
 
-        if (zikirCount >= threshold) {
+        if (currentCycle >= threshold) {
             bead.className =
                 "w-2.5 h-2.5 rounded-full bg-[#0F9D58] opacity-100 scale-110 transition-all duration-300";
         } else {
@@ -120,18 +121,36 @@ function zikirUpdateBeads() {
 function zikirUpdateUI() {
     document.getElementById("zikirCount").textContent = zikirCount;
 
-    const percentage = Math.min(zikirCount / zikirTarget, 1);
-    const offset = ZIKIR_CIRCUMFERENCE * (1 - percentage);
+    const ring = document.getElementById("zikirRing");
+    const currentCycle = zikirCount % zikirTarget;
+    const isComplete = zikirCount > 0 && currentCycle === 0;
 
-    document.getElementById("zikirRing").style.strokeDashoffset = offset;
+    if (isComplete) {
+        ring.style.strokeDashoffset = 0;
+
+        const putaran = zikirCount / zikirTarget;
+        zikirShowNotif(`🌟 Target tercapai! (${putaran}× putaran)`);
+
+        setTimeout(() => {
+            if (zikirCount % zikirTarget === 0) {
+                ring.style.transition = "none";
+                ring.style.strokeDashoffset = ZIKIR_CIRCUMFERENCE;
+
+                void ring.offsetWidth;
+
+                ring.style.transition = "stroke-dashoffset 0.4s ease";
+            }
+        }, 400);
+
+    } else {
+        const percentage = currentCycle / zikirTarget;
+        const offset = ZIKIR_CIRCUMFERENCE * (1 - percentage);
+        ring.style.strokeDashoffset = offset;
+    }
 
     zikirUpdateBeads();
 
-    if (zikirCount > 0 && zikirCount % zikirTarget == 0) {
-        zikirShowNotif(
-            `🌟 Target tercapai! (${zikirCount / zikirTarget}× putaran)`
-        );
-    } else if (zikirCount == 0) {
+    if (zikirCount === 0) {
         zikirHideNotif();
     }
 }
