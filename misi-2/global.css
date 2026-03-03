@@ -1,0 +1,22 @@
+ body {
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+ }
+
+ @keyframes zikirBump {
+     0% {
+         transform: scale(1);
+     }
+
+     40% {
+         transform: scale(1.2);
+     }
+
+     100% {
+         transform: scale(1);
+     }
+ }
+
+ .zikir-bump {
+     animation: zikirBump .25s ease;
+ }
