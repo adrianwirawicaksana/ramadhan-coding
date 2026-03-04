@@ -180,6 +180,7 @@ function zikirReset() {
 // ===============================
 // NOTIFICATION
 // ===============================
+
 function zikirShowPopup(message) {
     const popup = document.getElementById("zikirPopup");
     const text = document.getElementById("zikirPopupText");
@@ -207,4 +208,5 @@ function zikirShowNotif(message) {
 
 function zikirHideNotif() {
     document.getElementById("zikirNotif").classList.add("hidden");
+
 }
