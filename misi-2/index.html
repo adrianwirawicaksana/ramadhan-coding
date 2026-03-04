@@ -52,10 +52,9 @@
         <div class="w-full max-w-md">
 
             <!-- DZIKIR IMAGE -->
-            <section onclick="toggleCard(this)" data-target="dzikir-main" class="transition duration-500 transform hover:shadow-xl hover:scale-105
-            bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
-            rounded-3xl p-6 md:p-8 shadow-lg border-4 border-[#0F9D58]
-            flex flex-col items-center text-center space-y-4 cursor-pointer">
+            <section onclick="toggleCard(this)" data-target="dzikir-main"
+                class="transition duration-500 transform hover:shadow-xl hover:scale-105 bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
+                rounded-3xl p-6 md:p-8 shadow-lg border-4 border-[#0F9D58] flex flex-col items-center text-center space-y-4 cursor-pointer">
 
                 <img src="./assets/Dzikir.webp" alt="Gambar Dzikir"
                     class="w-full max-w-sm aspect-square object-cover rounded-xl" />
@@ -66,12 +65,8 @@
             </section>
 
             <!-- DZIKIR MAIN -->
-            <section id="dzikir-main" class="hidden transition duration-500
-    bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
-    rounded-3xl
-    p-5 sm:p-6 md:p-8
-    shadow-lg border-4 border-[#0F9D58]
-    w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto">
+            <section id="dzikir-main" class="hidden transition duration-500 bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0] rounded-3xl 
+            p-5 sm:p-6 md:p-8 shadow-lg border-4 border-[#0F9D58] w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto">
 
                 <!-- CARD HEADER -->
                 <div class="mb-6 flex items-start justify-between">
@@ -86,9 +81,7 @@
 
                     <!-- BACK BUTTON -->
                     <button onclick="toggleBack('dzikir-main')" class="px-4 py-2 bg-[#0F9D58] text-white
-        font-['poppins'] text-sm sm:text-md
-        rounded-lg hover:opacity-90 transition
-        whitespace-nowrap">
+                    font-['poppins'] text-sm sm:text-md rounded-lg hover:opacity-90 transition whitespace-nowrap">
                         Kembali
                     </button>
 
@@ -96,26 +89,23 @@
 
                 <!-- SELECT DZIKIR -->
                 <div class="mb-4">
-                    <label class="text-xs sm:text-sm font-semibold font-['poppins']
-        text-neutral-600 uppercase tracking-widest">
+                    <label
+                        class="text-xs sm:text-sm font-semibold font-['poppins'] text-neutral-600 uppercase tracking-widest">
                         Pilih Dzikir
                     </label>
 
                     <!-- CONTAINER OPTIONS -->
                     <div class="relative w-full my-1">
-                        <select id="zikirSelect" class="appearance-none w-full h-12 rounded-2xl border-2 border-[#0F9D58]
-  bg-white px-5 pr-12
-  font-['Poppins'] text-sm text-neutral-700
-  focus:outline-none focus:ring-2 focus:ring-[#0F9D58]
-  focus:bg-[#0F9D58]/5
-  cursor-pointer" onchange="zikirChange()">
+                        <select id="zikirSelect" class="appearance-none w-full h-12 rounded-2xl border-2 border-[#0F9D58] bg-white px-5 pr-12
+                            font-['Poppins'] text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-[#0F9D58] 
+                            transition-all duration-200 cursor-pointer" onchange="zikirChange()">
 
-                            <option value="سُبْحَانَ ٱللَّٰهِ|33">سُبْحَانَ ٱللَّٰهِ — Subhanallah (33×)</option>
-                            <option value="ٱلْحَمْدُ لِلَّٰهِ|33">ٱلْحَمْدُ لِلَّٰهِ — Alhamdulillah (33×)</option>
-                            <option value="ٱللَّٰهُ أَكْبَرُ|33">ٱللَّٰهُ أَكْبَرُ — Allahu Akbar (33×)</option>
+                            <option value="سُبْحَانَ ٱللَّٰهِ|33">سُبْحَانَ ٱللَّٰهِ — Subhanallah</option>
+                            <option value="ٱلْحَمْدُ لِلَّٰهِ|33">ٱلْحَمْدُ لِلَّٰهِ — Alhamdulillah</option>
+                            <option value="ٱللَّٰهُ أَكْبَرُ|33">ٱللَّٰهُ أَكْبَرُ — Allahu Akbar</option>
                             <option value="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ|100">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ —
-                                Lailahaillallah (100×)</option>
-                            <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70">أَسْتَغْفِرُ ٱللَّٰهَ — Astaghfirullah (70×)
+                                Lailahaillallah</option>
+                            <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70">أَسْتَغْفِرُ ٱللَّٰهَ — Astaghfirullah
                             </option>
                         </select>
 
@@ -129,8 +119,7 @@
                     </div>
 
                     <!-- TARGET -->
-                    <p class="text-center font-['poppins']
-        text-sm sm:text-md text-neutral-600 mb-4">
+                    <p class="text-center font-['poppins'] text-sm sm:text-md text-neutral-600 mb-4">
                         🎯 Target:
                         <span id="zikirTargetDisplay" class="font-bold text-[#0F9D58]">33</span>
                         kali
@@ -163,33 +152,30 @@
                                     class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F9D58] leading-none">
                                     0
                                 </span>
-                                <span class="font-['poppins']
-                    text-xs sm:text-sm uppercase tracking-widest
-                    text-neutral-500 mt-1">
+                                <span
+                                    class="font-['poppins'] text-xs sm:text-sm uppercase tracking-widest text-neutral-500 mt-1">
                                     dzikir
                                 </span>
                             </div>
                         </div>
 
                         <!-- BEADS -->
-                        <div id="zikirBeads" class="flex flex-wrap justify-center gap-1
-            max-w-[200px] sm:max-w-[240px]
-            min-h-[18px]">
+                        <div id="zikirBeads"
+                            class="flex flex-wrap justify-center gap-1 max-w-[200px] sm:max-w-[240px] min-h-[18px]">
                         </div>
                     </div>
 
                     <!-- NOTIFICATION -->
-                    <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl
-        bg-white/60 border border-[#0F9D58]/40
-        font-['poppins'] text-sm font-bold text-[#0F9D58]">
+                    <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl bg-white/60 border border-[#0F9D58]/40 font-['poppins'] 
+                    text-sm font-bold text-[#0F9D58]">
                     </div>
 
                     <!-- POPUP NOTIFICATION -->
                     <div id="zikirPopup"
                         class="min-h-screen fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
 
-                        <div class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl
-                animate-[fadeIn_0.3s_ease-out]">
+                        <div
+                            class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl animate-[fadeIn_0.3s_ease-out]">
 
                             <h2 class="text-xl font-bold font-['poppins'] text-[#0F9D58] mb-3">
                                 Notifikasi!
@@ -198,7 +184,7 @@
                             <p id="zikirPopupText" class="mb-5 font-['poppins'] text-gray-600"></p>
 
                             <button onclick="zikirClosePopup()" class="px-6 py-2 bg-[#0F9D58] text-white font-['poppins'] rounded-xl
-                       hover:brightness-110 active:scale-95 transition">
+                            hover:brightness-110 active:scale-95 transition">
                                 Tutup
                             </button>
                         </div>
@@ -213,12 +199,9 @@
                     <div class="flex flex-col sm:flex-row gap-3">
 
                         <!-- ADD BUTTON -->
-                        <button onclick="zikirAdd()" id="btnZikirAdd" class="w-full sm:flex-[2]
-            py-4 bg-[#0F9D58] text-white sm:text-xl font-semibold
-            font-['poppins'] rounded-2xl shadow-md
-            hover:brightness-110 active:scale-95
-            transition-all duration-150
-            flex justify-center items-center">
+                        <button onclick="zikirAdd()" id="btnZikirAdd"
+                            class="w-full sm:flex-[2] py-4 bg-[#0F9D58] text-white sm:text-xl font-semibold font-['poppins'] rounded-2xl shadow-md 
+                            hover:brightness-110 active:scale-95 transition-all duration-150 flex justify-center items-center">
                             Dzi
                             <img src="./assets/Tasbih.svg" alt="Tasbih"
                                 class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
@@ -226,15 +209,9 @@
                         </button>
 
                         <!-- RESET BUTTON -->
-                        <button onclick="zikirReset()" class="w-full sm:text-xl sm:flex-1
-            py-4 bg-white/60
-            border-2 border-[#0F9D58]/40
-            text-[#0F9D58]
-            font-['poppins'] font-semibold
-            rounded-2xl
-            hover:bg-white/80
-            active:scale-95
-            transition-all duration-150">
+                        <button onclick="zikirReset()"
+                            class="w-full sm:text-xl sm:flex-1 py-4 bg-white/60 border-2 border-[#0F9D58]/40 text-[#0F9D58]
+                            font-['poppins'] font-semibold rounded-2xl hover:bg-white/80 active:scale-95 transition-all duration-150">
                             ↺ Reset
                         </button>
                     </div>
@@ -265,6 +242,5 @@
     <script src="script.js"></script>
 
 </body>
-
 
 </html>
