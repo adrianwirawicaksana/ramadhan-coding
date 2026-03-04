@@ -101,116 +101,132 @@
                         Pilih Dzikir
                     </label>
 
-                    <select id="zikirSelect" class="mt-1 w-full rounded-xl border-2 border-[#0F9D58]
-            bg-white/70 px-4 py-2
-            font-['poppins'] text-sm text-neutral-700
-            focus:outline-none focus:ring-2 focus:ring-[#0F9D58]
-            cursor-pointer" onchange="zikirChange()">
-                        <option value="سُبْحَانَ ٱللَّٰهِ|33">سُبْحَانَ ٱللَّٰهِ — Subhanallah (33×)</option>
-                        <option value="ٱلْحَمْدُ لِلَّٰهِ|33">ٱلْحَمْدُ لِلَّٰهِ — Alhamdulillah (33×)</option>
-                        <option value="ٱللَّٰهُ أَكْبَرُ|33">ٱللَّٰهُ أَكْبَرُ — Allahu Akbar (33×)</option>
-                        <option value="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ|100">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ — Lailahaillallah
-                            (100×)</option>
-                        <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70">أَسْتَغْفِرُ ٱللَّٰهَ — Astaghfirullah (70×)</option>
-                    </select>
-                </div>
+                    <!-- CONTAINER OPTIONS -->
+                    <div class="relative w-full my-1">
+                        <select id="zikirSelect" class="appearance-none w-full h-12 rounded-2xl border-2 border-[#0F9D58]
+  bg-white px-5 pr-12
+  font-['Poppins'] text-sm text-neutral-700
+  focus:outline-none focus:ring-2 focus:ring-[#0F9D58]
+  focus:bg-[#0F9D58]/5
+  cursor-pointer" onchange="zikirChange()">
 
-                <!-- TARGET -->
-                <p class="text-center font-['poppins']
-        text-sm sm:text-md text-neutral-600 mb-4">
-                    🎯 Target:
-                    <span id="zikirTargetDisplay" class="font-bold text-[#0F9D58]">33</span>
-                    kali
-                </p>
+                            <option value="سُبْحَانَ ٱللَّٰهِ|33">سُبْحَانَ ٱللَّٰهِ — Subhanallah (33×)</option>
+                            <option value="ٱلْحَمْدُ لِلَّٰهِ|33">ٱلْحَمْدُ لِلَّٰهِ — Alhamdulillah (33×)</option>
+                            <option value="ٱللَّٰهُ أَكْبَرُ|33">ٱللَّٰهُ أَكْبَرُ — Allahu Akbar (33×)</option>
+                            <option value="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ|100">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ —
+                                Lailahaillallah (100×)</option>
+                            <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70">أَسْتَغْفِرُ ٱللَّٰهَ — Astaghfirullah (70×)
+                            </option>
+                        </select>
 
-                <!-- COUNTER DISPLAY -->
-                <div class="flex flex-col items-center gap-4 mb-6">
-
-                    <!-- SVG RING -->
-                    <div class="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40">
-                        <svg class="w-full h-full -rotate-90" viewBox="0 0 160 160">
-                            <defs>
-                                <linearGradient id="zikirGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#0F9D58" />
-                                    <stop offset="100%" stop-color="#84cc16" />
-                                </linearGradient>
-                            </defs>
-                            <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="10" />
-
-                            <circle id="zikirRing" cx="80" cy="80" r="68" fill="none" stroke="url(#zikirGrad)"
-                                stroke-width="10" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427"
-                                style="transition: stroke-dashoffset .5s cubic-bezier(.4,0,.2,1)" />
-                        </svg>
-
-                        <!-- RING NUMBER -->
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="zikirCount"
-                                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F9D58] leading-none">
-                                0
-                            </span>
-                            <span class="font-['poppins']
-                    text-xs sm:text-sm uppercase tracking-widest
-                    text-neutral-500 mt-1">
-                                dzikir
-                            </span>
+                        <!-- Arrow -->
+                        <div class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#0F9D58]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
                         </div>
                     </div>
 
-                    <!-- BEADS -->
-                    <div id="zikirBeads" class="flex flex-wrap justify-center gap-1
+                    <!-- TARGET -->
+                    <p class="text-center font-['poppins']
+        text-sm sm:text-md text-neutral-600 mb-4">
+                        🎯 Target:
+                        <span id="zikirTargetDisplay" class="font-bold text-[#0F9D58]">33</span>
+                        kali
+                    </p>
+
+                    <!-- COUNTER DISPLAY -->
+                    <div class="flex flex-col items-center gap-4 mb-6">
+
+                        <!-- SVG RING -->
+                        <div class="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40">
+                            <svg class="w-full h-full -rotate-90" viewBox="0 0 160 160">
+                                <defs>
+                                    <linearGradient id="zikirGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#0F9D58" />
+                                        <stop offset="100%" stop-color="#84cc16" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(0,0,0,0.08)"
+                                    stroke-width="10" />
+
+                                <circle id="zikirRing" cx="80" cy="80" r="68" fill="none" stroke="url(#zikirGrad)"
+                                    stroke-width="10" stroke-linecap="round" stroke-dasharray="427"
+                                    stroke-dashoffset="427"
+                                    style="transition: stroke-dashoffset .5s cubic-bezier(.4,0,.2,1)" />
+                            </svg>
+
+                            <!-- RING NUMBER -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="zikirCount"
+                                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F9D58] leading-none">
+                                    0
+                                </span>
+                                <span class="font-['poppins']
+                    text-xs sm:text-sm uppercase tracking-widest
+                    text-neutral-500 mt-1">
+                                    dzikir
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- BEADS -->
+                        <div id="zikirBeads" class="flex flex-wrap justify-center gap-1
             max-w-[200px] sm:max-w-[240px]
             min-h-[18px]">
+                        </div>
                     </div>
-                </div>
 
-                <!-- NOTIFICATION -->
-                <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl
+                    <!-- NOTIFICATION -->
+                    <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl
         bg-white/60 border border-[#0F9D58]/40
         font-['poppins'] text-sm font-bold text-[#0F9D58]">
-                </div>
+                    </div>
 
-                <!-- POPUP NOTIFICATION -->
-                <div id="zikirPopup"
-                    class="min-h-screen fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+                    <!-- POPUP NOTIFICATION -->
+                    <div id="zikirPopup"
+                        class="min-h-screen fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
 
-                    <div class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl
+                        <div class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl
                 animate-[fadeIn_0.3s_ease-out]">
 
-                        <h2 class="text-xl font-bold font-['poppins'] text-[#0F9D58] mb-3">
-                            Notifikasi!
-                        </h2>
+                            <h2 class="text-xl font-bold font-['poppins'] text-[#0F9D58] mb-3">
+                                Notifikasi!
+                            </h2>
 
-                        <p id="zikirPopupText" class="mb-5 font-['poppins'] text-gray-600"></p>
+                            <p id="zikirPopupText" class="mb-5 font-['poppins'] text-gray-600"></p>
 
-                        <button onclick="zikirClosePopup()" class="px-6 py-2 bg-[#0F9D58] text-white font-['poppins'] rounded-xl
+                            <button onclick="zikirClosePopup()" class="px-6 py-2 bg-[#0F9D58] text-white font-['poppins'] rounded-xl
                        hover:brightness-110 active:scale-95 transition">
-                            Tutup
-                        </button>
+                                Tutup
+                            </button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- SOUND -->
-                <audio id="zikirSound">
-                    <source src="./assets/Sound.mp3" type="audio/ogg">
-                </audio>
+                    <!-- SOUND -->
+                    <audio id="zikirSound">
+                        <source src="./assets/Sound.mp3" type="audio/ogg">
+                    </audio>
 
-                <!-- BUTTON AREA -->
-                <div class="flex flex-col sm:flex-row gap-3">
+                    <!-- BUTTON AREA -->
+                    <div class="flex flex-col sm:flex-row gap-3">
 
-                    <!-- ADD BUTTON -->
-                    <button onclick="zikirAdd()" id="btnZikirAdd" class="w-full sm:flex-[2]
+                        <!-- ADD BUTTON -->
+                        <button onclick="zikirAdd()" id="btnZikirAdd" class="w-full sm:flex-[2]
             py-4 bg-[#0F9D58] text-white sm:text-xl font-semibold
             font-['poppins'] rounded-2xl shadow-md
             hover:brightness-110 active:scale-95
             transition-all duration-150
             flex justify-center items-center">
-                        Dzi
-                        <img src="./assets/Tasbih.svg" alt="Tasbih" class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
-                        kir
-                    </button>
+                            Dzi
+                            <img src="./assets/Tasbih.svg" alt="Tasbih"
+                                class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
+                            kir
+                        </button>
 
-                    <!-- RESET BUTTON -->
-                    <button onclick="zikirReset()" class="w-full sm:text-xl sm:flex-1
+                        <!-- RESET BUTTON -->
+                        <button onclick="zikirReset()" class="w-full sm:text-xl sm:flex-1
             py-4 bg-white/60
             border-2 border-[#0F9D58]/40
             text-[#0F9D58]
@@ -219,9 +235,9 @@
             hover:bg-white/80
             active:scale-95
             transition-all duration-150">
-                        ↺ Reset
-                    </button>
-                </div>
+                            ↺ Reset
+                        </button>
+                    </div>
 
             </section>
 
