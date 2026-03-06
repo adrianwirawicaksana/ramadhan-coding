@@ -38,6 +38,22 @@ const setHTML = (id, v) => {
     if (el) el.innerHTML = v;
 };
 
+/** Scroll otomatis ke hasil */
+function scrollToResult(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const modalBox = el.closest('.modal-box');
+    if (!modalBox) return;
+
+    setTimeout(() => {
+        modalBox.scrollTo({
+            top: el.offsetTop - 20,
+            behavior: "smooth"
+        });
+    }, 150);
+}
+
 /** Badge status wajib / belum wajib */
 const badge = (wajib) =>
     `<span class="badge ${wajib ? 'badge-wajib' : 'badge-belum'}">
@@ -195,6 +211,7 @@ function hitungPenghasilan() {
     setTxt('rp-zakat', wajib ? rp(jumlahBulan * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-penghasilan').classList.add('show');
+    scrollToResult('res-penghasilan');
 }
 
 /* ===== KALKULASI: PERUSAHAAN JASA ===== */
@@ -215,6 +232,7 @@ function hitungJasa() {
     setTxt('rj-zakat', wajib ? rp(pendapatan * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-jasa').classList.add('show');
+    scrollToResult('res-jasa');
 }
 
 /* ===== KALKULASI: PERUSAHAAN DAGANG / INDUSTRI ===== */
@@ -240,6 +258,7 @@ function hitungDagang() {
     setTxt('rd-zakat', wajib ? rp(jumlah * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-dagang').classList.add('show');
+    scrollToResult('res-dagang');
 }
 
 /* ===== KALKULASI: PERDAGANGAN ===== */
@@ -265,6 +284,7 @@ function hitungPerdagangan() {
     setTxt('rpd-zakat', wajib ? rp(jumlah * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-perdagangan').classList.add('show');
+    scrollToResult('res-perdagangan');
 }
 
 /* ===== KALKULASI: EMAS ===== */
@@ -293,4 +313,5 @@ function hitungEmas() {
     );
 
     document.getElementById('res-emas').classList.add('show');
+    scrollToResult('res-emas');
 }
