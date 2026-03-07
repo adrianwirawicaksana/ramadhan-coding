@@ -37,7 +37,7 @@ function getRamadhanDay() {
 }
 
 function motivasi(p) {
-    if (p === 0) return '✨ "Barangsiapa berpuasa Ramadhan dengan iman, dosanya diampuni..."';
+    if (p === 0) return '✨ Semangat jalani Ramadhan & ayo bangun progress-mu setiap hari!';
     if (p < 30) return '🌱 Setiap langkah kecil bernilai di sisi Allah. Teruslah!';
     if (p < 60) return '🌟 Separuh jalan sudah kamu tempuh. Jangan berhenti!';
     if (p < 90) return '🔥 Hampir sempurna! Allah melihat setiap usahamu.';
