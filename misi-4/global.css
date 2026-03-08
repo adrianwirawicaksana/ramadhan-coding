@@ -261,7 +261,7 @@ main {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 14px;
     padding: 10px 16px;
-    line-height: 1.65
+    line-height: 1.65;
 }
 
 .tabs-wrap {
