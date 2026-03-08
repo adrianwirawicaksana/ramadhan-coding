@@ -6,16 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hitung Dzikir</title>
 
-    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Global CSS -->
     <link rel="stylesheet" href="/global.css">
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <!-- Font Poppins For Paragraph -->
     <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
-    <!-- Font Rabento For Title -->
     <link href="https://fonts.cdnfonts.com/css/rabento-personal-use-only" rel="stylesheet">
+
+    <style>
+        /* ── 3D Button – Hijau ── */
+        .btn-3d-green {
+            box-shadow: 0 6px 0 #0a7a45, 0 8px 14px rgba(0, 0, 0, 0.25);
+            transition: box-shadow 0.1s ease, transform 0.1s ease;
+        }
+
+        .btn-3d-green:hover {
+            box-shadow: 0 7px 0 #0a7a45, 0 10px 18px rgba(0, 0, 0, 0.28);
+            transform: translateY(-1px);
+        }
+
+        .btn-3d-green:active {
+            box-shadow: 0 2px 0 #0a7a45, 0 3px 6px rgba(0, 0, 0, 0.2);
+            transform: translateY(4px);
+        }
+
+        /* ── 3D Button – Putih ── */
+        .btn-3d-white {
+            box-shadow: 0 6px 0 #9ca3af, 0 8px 14px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.1s ease, transform 0.1s ease;
+        }
+
+        .btn-3d-white:hover {
+            box-shadow: 0 7px 0 #9ca3af, 0 10px 18px rgba(0, 0, 0, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .btn-3d-white:active {
+            box-shadow: 0 2px 0 #9ca3af, 0 3px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(4px);
+        }
+
+        /* ── Counter bump ── */
+        @keyframes zikirBump {
+            0% {
+                transform: scale(1);
+            }
+
+            40% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .zikir-bump {
+            animation: zikirBump .25s ease;
+        }
+
+        /* ── Daily pop ── */
+        @keyframes dailyPop {
+            0% {
+                transform: scale(1);
+            }
+
+            40% {
+                transform: scale(1.35);
+            }
+
+            70% {
+                transform: scale(0.92);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .daily-pop {
+            animation: dailyPop 0.3s ease forwards;
+        }
+
+        /* ── Calendar tooltip on hover ── */
+        .cal-cell .cal-tooltip {
+            opacity: 0;
+            transform: translateY(2px);
+            transition: all 0.18s ease;
+            pointer-events: none;
+        }
+
+        .cal-cell:hover .cal-tooltip {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 
 <body class="min-h-screen bg-gradient-to-br from-[#F6F3E9] via-[#F8F5EE] to-[#F1ECE2] text-[#1F2937] font-sans">
@@ -23,114 +107,113 @@
     <!-- HEADER -->
     <header class="opacity-0 translate-y-5 transition duration-700 border">
         <div class="max-w-4xl mx-auto px-6 py-6">
-
             <div class="flex items-center gap-4">
-
-                <!-- ICON -->
                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center">
                     <img src="./assets/Tasbih.svg" alt="Gambar Tasbih" class="w-16 h-16 object-contain">
                 </div>
-
-                <!-- TEXT -->
                 <div>
                     <h1 class="text-3xl md:text-4xl font-bold tracking-wide font-['Rabento_Personal_Use_Only']">
                         Hitung Dzikir
                     </h1>
-                    <p class="text-sm font-['poppins'] text-neutral-600 mt-1">
-                        Ramadhan Kareem & Perbanyak Dzikir
+                    <p class="text-sm font-['Poppins'] text-neutral-600 mt-1">
+                        Raih ketenangan hati, satu dzikir satu langkah.
                     </p>
                 </div>
-
             </div>
-
         </div>
     </header>
 
     <!-- MAIN -->
-    <main class="max-w-4xl mx-auto px-6 py-12 flex justify-center">
+    <main class="max-w-4xl mx-auto px-6 py-12 flex flex-col items-center">
+        <div class="w-full max-w-md flex flex-col gap-6">
 
-        <div class="w-full max-w-md">
-
-            <!-- IMAGE SECTION -->
-            <section onclick="toggleCard(this)" data-target="dzikir-main"
-                class="transition duration-500 transform hover:shadow-xl hover:scale-105 bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
-                rounded-3xl p-6 md:p-8 shadow-lg border-4 border-[#0F9D58] flex flex-col items-center text-center space-y-4 cursor-pointer">
-
+            <!-- ══════════════════════════════════════ -->
+            <!-- CARD 1 : GAMBAR ENTRY                  -->
+            <!-- ══════════════════════════════════════ -->
+            <section onclick="toggleCard(this)" data-target="dzikir-main" class="transition duration-500 hover:shadow-xl hover:scale-105
+                bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
+                rounded-3xl p-6 md:p-8 shadow-lg border-4 border-[#0F9D58]
+                flex flex-col items-center text-center space-y-4 cursor-pointer">
                 <img src="./assets/Dzikir.webp" alt="Gambar Dzikir"
                     class="w-full max-w-sm aspect-square object-cover rounded-xl" />
-
-                <p class="text-xl md:text-2xl font-['poppins'] font-medium text-green-900">
+                <p class="text-xl md:text-2xl font-['Poppins'] font-medium text-green-900">
                     Klik untuk hitung dzikir
                 </p>
             </section>
 
-            <!-- MAIN SECTION -->
-            <section id="dzikir-main" class="hidden transition duration-500 bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0] rounded-3xl 
-            p-5 sm:p-6 md:p-8 shadow-lg border-4 border-[#0F9D58] w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto">
+            <!-- ══════════════════════════════════════ -->
+            <!-- CARD 2 : COUNTER DZIKIR                -->
+            <!-- ══════════════════════════════════════ -->
+            <section id="dzikir-main" class="hidden transition duration-500
+                bg-gradient-to-br from-[#FEF9C3] via-[#D9F99D] to-[#A7F3D0]
+                rounded-3xl p-5 sm:p-6 md:p-8 shadow-lg border-4 border-[#0F9D58] w-full">
 
                 <!-- CARD HEADER -->
                 <div class="mb-6 flex items-start justify-between">
-
-                    <!-- TITLE -->
                     <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-[#0F9D58] font-['Rabento_Personal_Use_Only']">
-                            Hitung Dzikir
+                        <h2 class="text-xl sm:text-2xl font-bold text-[#0F9D58] font-['poppins']">
+                            HITUNG DZIKIR
                         </h2>
                         <div class="w-16 h-1 bg-[#0F9D58] rounded-full mt-2"></div>
                     </div>
-
-                    <!-- BACK BUTTON -->
-                    <button onclick="toggleBack('dzikir-main')" class="px-4 py-2 bg-[#0F9D58] text-white
-                    font-['poppins'] text-sm sm:text-md rounded-lg hover:opacity-90 transition whitespace-nowrap">
+                    <button onclick="toggleBack('dzikir-main')" class="px-4 py-2 bg-[#0F9D58] text-white font-['Poppins'] text-sm rounded-lg
+                        hover:opacity-90 transition whitespace-nowrap">
                         Kembali
                     </button>
-
                 </div>
 
-                <!-- SELECT DZIKIR -->
+                <!-- SELECT -->
                 <div class="mb-4">
                     <label
-                        class="text-xs sm:text-sm font-semibold font-['poppins'] text-neutral-600 uppercase tracking-widest">
+                        class="text-xs sm:text-sm font-semibold font-['Poppins'] text-neutral-600 uppercase tracking-widest">
                         Pilih Dzikir
                     </label>
-
-                    <!-- CONTAINER OPTIONS -->
                     <div class="relative w-full my-1">
-                        <select id="zikirSelect" class="appearance-none w-full h-12 rounded-2xl border-2 border-[#0F9D58] bg-white px-5 pr-12
-                            font-['Poppins'] text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-[#0F9D58] 
+                        <select id="zikirSelect" class="appearance-none w-full h-12 rounded-2xl border border-[#0F9D58] bg-white px-5 pr-12
+                            font-['Poppins'] text-sm text-neutral-700 focus:outline-none focus:ring-1 focus:ring-[#0F9D58]
                             transition-all duration-200 cursor-pointer" onchange="zikirChange()">
-
-                            <option value="سُبْحَانَ ٱللَّٰهِ|33">سُبْحَانَ ٱللَّٰهِ — Subhanallah</option>
-                            <option value="ٱلْحَمْدُ لِلَّٰهِ|33">ٱلْحَمْدُ لِلَّٰهِ — Alhamdulillah</option>
-                            <option value="ٱللَّٰهُ أَكْبَرُ|33">ٱللَّٰهُ أَكْبَرُ — Allahu Akbar</option>
-                            <option value="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ|100">لَا إِلَٰهَ إِلَّا ٱللَّٰهُ —
-                                Lailahaillallah</option>
-                            <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70">أَسْتَغْفِرُ ٱللَّٰهَ — Astaghfirullah
+                            <option value="سُبْحَانَ ٱللَّٰهِ|33|Maha Suci Allah">Subhanallah (33x)</option>
+                            <option value="ٱلْحَمْدُ لِلَّٰهِ|33|Segala Puji Bagi Allah">Alhamdulillah (33x)</option>
+                            <option value="ٱللَّٰهُ أَكْبَرُ|33|Allah Maha Besar">Allahu Akbar (33x)</option>
+                            <option value="لَا إِلَٰهَ إِلَّا ٱللَّٰهُ|100|Tiada Tuhan Selain Allah">Lailahaillallah
+                                (100x)</option>
+                            <option value="أَسْتَغْفِرُ ٱللَّٰهَ|70|Aku Memohon Ampun kepada Allah">Astaghfirullah (70x)
                             </option>
                         </select>
-
-                        <!-- ARROW -->
-                        <div class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#0F9D58]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
+                        <div class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                            <svg class="h-3.5 w-3.5" viewBox="0 0 10 6" fill="#0F9D58">
+                                <polygon points="0,0 10,0 5,6" />
                             </svg>
                         </div>
                     </div>
 
-                    <!-- TARGET -->
-                    <p class="text-center font-['poppins'] text-sm sm:text-md text-neutral-600 mb-4">
-                        🎯 Target:
-                        <span id="zikirTargetDisplay" class="font-bold text-[#0F9D58]">33</span>
-                        kali
-                    </p>
+                    <!-- ARABIC + TARGET GABUNGAN -->
+                    <div
+                        class="w-full mt-3 mb-5 bg-white rounded-2xl border-2 border-dashed border-[#0F9D58] overflow-hidden">
+                        <div class="flex flex-col items-center gap-1.5 pt-6 pb-5 px-6 md:pt-8 md:pb-6 md:px-8">
+                            <p id="arabicText"
+                                class="text-4xl sm:text-5xl font-bold text-[#0F9D58] leading-loose text-center"
+                                style="font-family:'Traditional Arabic','Scheherazade New',serif;direction:rtl;">
+                                سُبْحَانَ ٱللَّٰهِ
+                            </p>
+                            <p id="indonesianText"
+                                class="text-sm sm:text-base font-['Poppins'] font-medium text-neutral-500 italic text-center">
+                                Maha Suci Allah
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center justify-center gap-2 py-3 px-4 bg-white border-t border-dashed border-[#0F9D58]">
+                            <span
+                                class="font-['Poppins'] text-xs font-semibold text-neutral-600 uppercase tracking-widest">Target</span>
+                            <span id="zikirTargetDisplay"
+                                class="font-['Poppins'] text-2xl sm:text-3xl font-extrabold text-[#0F9D58] leading-none">33</span>
+                            <span class="font-['Poppins'] text-sm font-bold text-[#0F9D58]">kali</span>
+                        </div>
+                    </div>
 
-                    <!-- COUNTER DISPLAY -->
+                    <!-- RING COUNTER -->
                     <div class="flex flex-col items-center gap-4 mb-6">
-
                         <div class="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40">
-                            
-                            <!-- SVG RING -->
                             <svg class="w-full h-full -rotate-90" viewBox="0 0 160 160">
                                 <defs>
                                     <linearGradient id="zikirGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -140,54 +223,35 @@
                                 </defs>
                                 <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(0,0,0,0.08)"
                                     stroke-width="10" />
-
                                 <circle id="zikirRing" cx="80" cy="80" r="68" fill="none" stroke="url(#zikirGrad)"
                                     stroke-width="10" stroke-linecap="round" stroke-dasharray="427"
                                     stroke-dashoffset="427"
-                                    style="transition: stroke-dashoffset .5s cubic-bezier(.4,0,.2,1)" />
+                                    style="transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1)" />
                             </svg>
-
-                            <!-- RING NUMBER -->
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
                                 <span id="zikirCount"
-                                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F9D58] leading-none">
-                                    0
-                                </span>
+                                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F9D58] leading-none font-['Poppins']">0</span>
                                 <span
-                                    class="font-['poppins'] text-xs sm:text-sm uppercase tracking-widest text-neutral-500 mt-1">
-                                    dzikir
-                                </span>
+                                    class="font-['Poppins'] text-xs sm:text-sm uppercase tracking-widest text-neutral-500 mt-1">dzikir</span>
                             </div>
                         </div>
-
-                        <!-- BEADS -->
                         <div id="zikirBeads"
                             class="flex flex-wrap justify-center gap-1 max-w-[200px] sm:max-w-[240px] min-h-[18px]">
                         </div>
                     </div>
 
-                    <!-- NOTIFICATION -->
-                    <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl bg-white/60 border border-[#0F9D58]/40 font-['poppins'] 
-                    text-sm font-bold text-[#0F9D58]">
+                    <!-- NOTIF INLINE -->
+                    <div id="zikirNotif" class="hidden mb-4 text-center py-2 px-4 rounded-xl bg-white/60 border border-[#0F9D58]/40
+                        font-['Poppins'] text-sm font-bold text-[#0F9D58]">
                     </div>
 
-                    <!-- POPUP NOTIFICATION -->
-                    <div id="zikirPopup"
-                        class="min-h-screen fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
-
-                        <div
-                            class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl animate-[fadeIn_0.3s_ease-out]">
-
-                            <h2 class="text-xl font-bold font-['poppins'] text-[#0F9D58] mb-3">
-                                Notifikasi!
-                            </h2>
-
-                            <p id="zikirPopupText" class="mb-5 font-['poppins'] text-gray-600"></p>
-
-                            <button onclick="zikirClosePopup()" class="px-6 py-2 bg-[#0F9D58] text-white font-['poppins'] rounded-xl
-                            hover:brightness-110 active:scale-95 transition">
-                                Tutup
-                            </button>
+                    <!-- POPUP -->
+                    <div id="zikirPopup" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+                        <div class="bg-white rounded-3xl p-6 w-80 text-center shadow-2xl">
+                            <h2 class="text-xl font-bold font-['Poppins'] text-[#0F9D58] mb-3">Notifikasi!</h2>
+                            <p id="zikirPopupText" class="mb-5 font-['Poppins'] text-gray-600"></p>
+                            <button onclick="zikirClosePopup()" class="px-6 py-2 bg-[#0F9D58] text-white font-['Poppins'] rounded-xl
+                                hover:brightness-110 active:scale-95 transition">Tutup</button>
                         </div>
                     </div>
 
@@ -196,55 +260,41 @@
                         <source src="./assets/Sound.mp3" type="audio/ogg">
                     </audio>
 
-                    <!-- BUTTON AREA -->
-                    <div class="flex flex-col sm:flex-row gap-3">
-
-                        <!-- ADD BUTTON -->
-                        <button onclick="zikirAdd()" id="btnZikirAdd"
-                            class="w-full sm:flex-[2] py-4 bg-[#0F9D58] text-white sm:text-xl font-semibold font-['poppins'] rounded-2xl shadow-md 
-                            hover:brightness-110 active:scale-95 transition-all duration-150 flex justify-center items-center">
-                            Dzi
-                            <img src="./assets/Tasbih.svg" alt="Tasbih"
-                                class="w-10 h-10 sm:w-12 sm:h-12 object-contain">
-                            kir
+                    <!-- BUTTONS 50:50 -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="zikirAdd()" id="btnZikirAdd" class="btn-3d-green w-full py-4 sm:py-5 bg-[#0F9D58] text-white
+                            font-['Poppins'] rounded-2xl flex flex-col justify-center items-center gap-0.5">
+                            <span class="text-3xl sm:text-4xl font-bold leading-none">+</span>
+                            <span class="text-xs sm:text-sm font-semibold tracking-widest uppercase">Tambah</span>
                         </button>
-
-                        <!-- RESET BUTTON -->
-                        <button onclick="zikirReset()"
-                            class="w-full sm:text-xl sm:flex-1 py-4 bg-white/60 border-2 border-[#0F9D58]/40 text-[#0F9D58]
-                            font-['poppins'] font-semibold rounded-2xl hover:bg-white/80 active:scale-95 transition-all duration-150">
+                        <button onclick="zikirReset()" class="btn-3d-white w-full py-4 sm:py-5 bg-white/80 border-2 border-[#0F9D58]/40
+                            text-[#0F9D58] text-base sm:text-lg font-['Poppins'] font-semibold rounded-2xl">
                             ↺ Reset
                         </button>
-                        
                     </div>
-
+                </div>
             </section>
 
-        </div>
 
+
+        </div>
     </main>
 
     <!-- FOOTER -->
     <footer class="opacity-0 translate-y-5 transition duration-700 border">
         <div class="max-w-4xl mx-auto px-6 py-8 text-center">
-
-            <p class="text-sm font-['poppins'] italic text-neutral-600 max-w-lg mx-auto">
+            <p class="text-sm font-['Poppins'] italic text-neutral-600 max-w-lg mx-auto">
                 "Dengan dzikir, hati yang gelisah menjadi damai,
                 jiwa yang lemah menjadi kuat,
                 dan langkah hidup menjadi lebih terarah."
             </p>
-
-            <p class="mt-2 font-['poppins'] text-sm text-neutral-500">
+            <p class="mt-2 font-['Poppins'] text-sm text-neutral-500">
                 © 2026 Hitung Dzikir • Dibuat untuk RCC Front-end Misi 2
             </p>
-
         </div>
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 
 </html>
-
-
