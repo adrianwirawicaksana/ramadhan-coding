@@ -459,7 +459,7 @@ main {
     border-radius: var(--radius-btn);
     /* width overridden to auto inside .btn-group */
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
     color: white;
     cursor: pointer;
@@ -745,8 +745,8 @@ main {
 
 .cal-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px
 }
 
 .cal-day {
@@ -806,10 +806,10 @@ main {
 .dzikir-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 16px;
-    padding: 12px 14px;
+    padding: 14px 16px;
     border: 2px solid transparent;
     transition: all .2s;
     cursor: pointer
@@ -834,26 +834,27 @@ main {
     min-width: 0
 }
 
+.dzikir-arabic {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    direction: rtl;
+    text-align: left;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    font-family: 'Scheherazade New', 'Amiri', 'Traditional Arabic', serif
+}
+
 .dzikir-name {
     font-weight: 600;
     font-size: 12px;
-    color: var(--text-dark)
-}
-
-.dzikir-arabic {
-    font-size: 11px;
-    color: var(--text-light);
-    direction: rtl;
-    unicode-bidi: bidi-override;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis
+    color: var(--text-mid)
 }
 
 .dzikir-count {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--text-light);
-    margin-top: 1px
+    margin-top: 2px
 }
 
 .dzikir-check {
@@ -949,7 +950,7 @@ footer {
     background: linear-gradient(180deg, #FF8C2A 0%, #E06010 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 700;
     cursor: pointer;
     position: relative;

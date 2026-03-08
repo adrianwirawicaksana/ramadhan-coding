@@ -21,11 +21,11 @@ const shalatItems = [
 ];
 
 const dzikirData = [
-    { id: 'subhanallah', name: 'Subhanallah', arabic: 'سُبْحَانَ اللهِ', target: 33, icon: '🌿' },
-    { id: 'alhamdulillah', name: 'Alhamdulillah', arabic: 'اَلْحَمْدُ لِلَّهِ', target: 33, icon: '🌸' },
-    { id: 'allahuakbar', name: 'Allahu Akbar', arabic: 'اَللهُ أَكْبَرُ', target: 34, icon: '⭐' },
-    { id: 'istighfar', name: 'Istighfar', arabic: 'أَسْتَغْفِرُ اللهَ', target: 100, icon: '💧' },
-    { id: 'shalawat', name: 'Shalawat', arabic: 'اللّٰهُمَّ صَلِّ عَلَى مُحَمَّد', target: 10, icon: '💛' },
+    { id: 'subhanallah', name: 'Subhanallah', arabic: 'سُبْحَانَ اللهِ', target: 33 },
+    { id: 'alhamdulillah', name: 'Alhamdulillah', arabic: 'اَلْحَمْدُ لِلَّهِ', target: 33 },
+    { id: 'allahuakbar', name: 'Allahu Akbar', arabic: 'اَللهُ أَكْبَرُ', target: 34 },
+    { id: 'istighfar', name: 'Istighfar', arabic: 'أَسْتَغْفِرُ اللهَ', target: 100 },
+    { id: 'shalawat', name: 'Shalawat', arabic: 'اللّٰهُمَّ صَلِّ عَلَى مُحَمَّد', target: 10 },
 ];
 
 dzikirData.forEach(d => state.dzikir[d.id] = false);
@@ -132,7 +132,7 @@ function updateQuran() {
         chip.style.cssText = 'background:rgba(167,243,208,0.4);color:#059669;font-weight:600';
     } else {
         chip.textContent = 'Masih bisa ditambah 📖';
-        chip.style.cssText = 'background:rgba(255,255,255,0.5);color:#4B5563;font-weight:600';
+        chip.style.cssText = 'background:rgba(255,255,255,0.5);color:#D97706;font-weight:600';
     }
     updateSummary();
 }
@@ -185,7 +185,7 @@ function syncTodayUI() {
     } else {
         btn.classList.remove('checked'); check.textContent = ''; check.style.cssText = '';
     }
-    document.getElementById('puasaIcon').textContent = c ? '🌙' : '🌟';
+    document.getElementById('puasaIcon').textContent = c ? '🎉' : '🌟';
     const now = new Date();
     const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const bln = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
@@ -217,10 +217,9 @@ function renderDzikir() {
         const checked = !!state.dzikir[d.id];
         return `
         <div class="dzikir-item ${checked ? 'done' : ''}" onclick="toggleDzikir('${d.id}')">
-            <span class="dzikir-icon">${d.icon}</span>
             <div class="dzikir-info">
-                <div class="dzikir-name">${d.name}</div>
                 <div class="dzikir-arabic">${d.arabic}</div>
+                <div class="dzikir-name">${d.name}</div>
                 <div class="dzikir-count">${d.target}×</div>
             </div>
             <div class="dzikir-check ${checked ? 'checked' : ''}">✓</div>
@@ -241,7 +240,7 @@ function updateDzikirUI() {
     if (p >= 100) { s.textContent = 'MasyaAllah, lengkap! 📿'; s.style.color = '#0F9D58'; }
     else if (p >= 60) { s.textContent = 'Hampir selesai, teruskan! ✨'; s.style.color = '#059669'; }
     else if (p >= 30) { s.textContent = 'Bagus! Terus berdzikir 🌿'; s.style.color = '#10B981'; }
-    else { s.textContent = 'Mulai berdzikir 📿'; s.style.color = '#4B5563'; }
+    else { s.textContent = 'Mulai berdzikir 📿'; s.style.color = '#D97706'; }
 }
 
 /* ─── SAVE ──────────────────────────────────────────── */
