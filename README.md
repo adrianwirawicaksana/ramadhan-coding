@@ -10,6 +10,7 @@ Website sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CD
 - 🔗 [Misi-2](https://ramadan-coding-misi-2.vercel.app/)
 - 🔗 [Misi-3](https://ramadan-coding-misi-3.vercel.app/)
 - 🔗 [Misi-4](https://ramadan-coding-misi-4.vercel.app/)
+- 🔗 [Misi-5](https://ramadan-coding-misi-5.vercel.app/)
 
 ---
 
@@ -26,7 +27,7 @@ git clone https://github.com/adrianwirawicaksana/ramadan-coding.git
 
 ```bash
 cd ramadan-coding
-cd misi-4
+cd misi-5
 
 ```
 
