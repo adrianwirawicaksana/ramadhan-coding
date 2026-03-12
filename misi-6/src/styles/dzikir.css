@@ -1,0 +1,86 @@
+  /* ── 3D Button – Hijau ── */
+  .btn-3d-green {
+      box-shadow: 0 6px 0 #0a7a45, 0 8px 14px rgba(0, 0, 0, 0.25);
+      transition: box-shadow 0.1s ease, transform 0.1s ease;
+  }
+
+  .btn-3d-green:hover {
+      box-shadow: 0 7px 0 #0a7a45, 0 10px 18px rgba(0, 0, 0, 0.28);
+      transform: translateY(-1px);
+  }
+
+  .btn-3d-green:active {
+      box-shadow: 0 2px 0 #0a7a45, 0 3px 6px rgba(0, 0, 0, 0.2);
+      transform: translateY(4px);
+  }
+
+  /* ── 3D Button – Putih ── */
+  .btn-3d-white {
+      box-shadow: 0 6px 0 #9ca3af, 0 8px 14px rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.1s ease, transform 0.1s ease;
+  }
+
+  .btn-3d-white:hover {
+      box-shadow: 0 7px 0 #9ca3af, 0 10px 18px rgba(0, 0, 0, 0.18);
+      transform: translateY(-1px);
+  }
+
+  .btn-3d-white:active {
+      box-shadow: 0 2px 0 #9ca3af, 0 3px 6px rgba(0, 0, 0, 0.12);
+      transform: translateY(4px);
+  }
+
+  /* ── Counter bump ── */
+  @keyframes zikirBump {
+      0% {
+          transform: scale(1);
+      }
+
+      40% {
+          transform: scale(1.2);
+      }
+
+      100% {
+          transform: scale(1);
+      }
+  }
+
+  .zikir-bump {
+      animation: zikirBump .25s ease;
+  }
+
+  /* ── Daily pop ── */
+  @keyframes dailyPop {
+      0% {
+          transform: scale(1);
+      }
+
+      40% {
+          transform: scale(1.35);
+      }
+
+      70% {
+          transform: scale(0.92);
+      }
+
+      100% {
+          transform: scale(1);
+      }
+  }
+
+  .daily-pop {
+      animation: dailyPop 0.3s ease forwards;
+  }
+
+  /* ── Calendar tooltip on hover ── */
+  .cal-cell .cal-tooltip {
+      opacity: 0;
+      transform: translateY(2px);
+      transition: all 0.18s ease;
+      pointer-events: none;
+  }
+
+  .cal-cell:hover .cal-tooltip {
+      opacity: 1;
+      transform: translateY(-2px);
+  }
