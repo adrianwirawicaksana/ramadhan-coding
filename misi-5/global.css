@@ -216,12 +216,11 @@ main {
     margin-bottom: 14px
 }
 
-/* ── STATE ICON ── */
 .state-icon {
     font-size: 36px
 }
 
-/* ── CARD BOX (gradient background) ── */
+/* ── CARD BOX ── */
 .g-box {
     background: var(--grad);
     border: var(--border);
@@ -403,7 +402,7 @@ main {
 }
 
 /* ════════════════════════════════════════
-   KOTA CHIP (selected city info)
+   KOTA CHIP
    ════════════════════════════════════════ */
 .kota-chip {
     display: none;
@@ -443,7 +442,7 @@ main {
 }
 
 /* ════════════════════════════════════════
-   STATE BOXES (loading / error / empty)
+   STATE BOXES
    ════════════════════════════════════════ */
 .state-box {
     display: none;
@@ -541,6 +540,9 @@ main {
     border-radius: 8px;
     border: var(--border);
     background: #fff;
+    /* Penting: beri max-height agar thead sticky bekerja saat scroll vertikal */
+    max-height: 480px;
+    overflow-y: auto;
 }
 
 .table-wrap.show {
@@ -556,10 +558,12 @@ table {
 }
 
 thead tr {
-    background: var(--green)
+    background: transparent
 }
 
 thead th {
+    background: var(--green);
+    /* ← background di th, bukan tr, agar sticky tetap hijau */
     color: #fff;
     font-weight: 700;
     font-size: 11px;
@@ -568,6 +572,9 @@ thead th {
     padding: 12px 13px;
     text-align: center;
     white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 thead th:first-child {
@@ -609,7 +616,7 @@ tbody td:first-child {
     font-size: 12px;
 }
 
-/* Today highlight row */
+/* Today highlight */
 tbody tr.today-row {
     background: rgba(15, 157, 88, .07) !important;
     border-left: 3px solid var(--green)
@@ -640,7 +647,7 @@ tbody tr.today-row .time-badge {
 }
 
 /* ════════════════════════════════════════
-   SWIPE HINT (mobile)
+   SWIPE HINT
    ════════════════════════════════════════ */
 .swipe-hint {
     display: none;
@@ -831,7 +838,7 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   PAGE LOADER (overlay) — bounce mascot
+   PAGE LOADER
    ════════════════════════════════════════ */
 @keyframes mascotBounce {
 
@@ -907,7 +914,6 @@ footer {
     margin-bottom: clamp(14px, 3vw, 28px);
 }
 
-/* Base (mobile-first: hp kecil ≤480px) */
 .loader-mascot {
     width: clamp(80px, 18vw, 200px);
     height: clamp(80px, 18vw, 200px);
@@ -959,7 +965,6 @@ footer {
     animation-delay: .24s
 }
 
-/* keep these for compat (no longer rendered) */
 .loader-ring {
     display: none
 }
@@ -975,15 +980,12 @@ footer {
 /* ════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════ */
-
-/* Tablet (481px – 900px) */
 @media (min-width: 481px) and (max-width: 900px) {
     .loader-mascot-wrap {
         margin-bottom: clamp(16px, 3vw, 24px)
     }
 }
 
-/* Desktop besar (≥1280px) */
 @media (min-width: 1280px) {
     .loader-mascot {
         width: 200px;
@@ -1010,7 +1012,6 @@ footer {
     }
 }
 
-/* Table responsive */
 @media (max-width: 600px) {
 
     thead th,
