@@ -6,7 +6,17 @@
 
 /* ── CONSTANTS ── */
 const BASE_URL = 'https://api.myquran.com/v2/sholat';
-const TODAY = new Date().toISOString().split('T')[0];
+
+// ✅ FIX: Gunakan waktu lokal perangkat (bukan UTC) agar tanggal sesuai WIB
+function _localDate() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+const TODAY = _localDate();               // pakai waktu lokal, bukan UTC
 const TAHUN = new Date().getFullYear();
 const BULAN = new Date().getMonth() + 1;
 
