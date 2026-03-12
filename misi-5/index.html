@@ -105,6 +105,45 @@
             </div>
         </section>
 
+        <!-- ═══════════════════════════════
+             COUNTDOWN SECTION (NEW)
+        ════════════════════════════════ -->
+        <section class="g-box anim-hidden" id="sectionCountdown" style="display:none">
+            <div class="section-head">
+                <div class="card-heading">Waktu Sholat Selanjutnya</div>
+            </div>
+
+            <div class="cdt-wrap">
+                <!-- Kiri: info periode -->
+                <div class="cdt-left">
+                    <div class="cdt-period-icon" id="cdtPeriodIcon">🌙</div>
+                    <div class="cdt-period-name" id="cdtPeriodName">—</div>
+                    <div class="cdt-period-sub" id="cdtPeriodTime">—</div>
+                </div>
+
+                <!-- Tengah: timer -->
+                <div class="cdt-center">
+                    <div class="cdt-next-label" id="cdtNextLabel">Menuju —</div>
+                    <div class="cdt-digits" id="cdtTimer">--:--:--</div>
+                    <div class="cdt-next-time" id="cdtNextTime">—</div>
+
+                    <!-- Progress bar -->
+                    <div class="cdt-progress-track">
+                        <div class="cdt-progress-fill" id="cdtProgressFill" style="width:0%"></div>
+                    </div>
+                    <div class="cdt-progress-labels">
+                        <span id="cdtProgStart">—</span>
+                        <span id="cdtProgEnd">—</span>
+                    </div>
+                </div>
+
+                <!-- Kanan: semua waktu hari ini -->
+                <div class="cdt-right" id="cdtPrayerList">
+                    <!-- diisi JS -->
+                </div>
+            </div>
+        </section>
+
         <!-- Tabel Jadwal -->
         <section class="g-box anim-hidden" id="sectionTabel">
             <div class="section-head">
