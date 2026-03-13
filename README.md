@@ -28,7 +28,7 @@ git clone https://github.com/adrianwirawicaksana/ramadan-coding.git
 
 ```bash
 cd ramadan-coding
-cd misi-6
+cd src
 
 ```
 
