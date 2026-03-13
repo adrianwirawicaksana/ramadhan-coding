@@ -982,6 +982,28 @@ footer {
     }
 }
 
+/* ── Animasi jarum jam berputar ── */
+@keyframes clockHandSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Shimmer progress bar ── */
+@keyframes progressShimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
 /* ─────────────────────────────
    Section head: heading kiri + tanggal kanan
 ───────────────────────────── */
@@ -1086,6 +1108,34 @@ footer {
     color: var(--text-light);
 }
 
+/* ── Wrapper icon + digits ── */
+.cdt-timer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Icon jam SVG ── */
+.cdt-clock-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: var(--green);
+    opacity: .85;
+}
+
+/* Jarum menit berputar — target elemen #clockMinuteHand di dalam SVG */
+.cdt-clock-icon .clock-hand-minute {
+    transform-origin: 12px 12px;
+    animation: clockHandSpin 60s linear infinite;
+}
+
+/* Jarum jam berputar lebih lambat */
+.cdt-clock-icon .clock-hand-hour {
+    transform-origin: 12px 12px;
+    animation: clockHandSpin 720s linear infinite;
+}
+
 .cdt-digits {
     font-size: clamp(32px, 7vw, 52px);
     font-weight: 700;
@@ -1107,6 +1157,9 @@ footer {
     font-weight: 500;
 }
 
+/* ─────────────────────────────
+   Progress bar — smooth animated
+───────────────────────────── */
 .cdt-progress-track {
     width: 100%;
     height: 8px;
@@ -1114,13 +1167,26 @@ footer {
     border-radius: 99px;
     overflow: hidden;
     margin-top: 2px;
+    /* Subtle inset shadow biar keliatan "slot"-nya */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .08);
 }
 
 .cdt-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--green-light), var(--green));
     border-radius: 99px;
-    transition: width .9s linear;
+    /* Gradient base warna */
+    background: linear-gradient(90deg,
+            var(--green-light) 0%,
+            var(--green) 50%,
+            var(--green-light) 100%);
+    background-size: 200% 100%;
+    /* Smooth width via JS, shimmer via CSS */
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: progressShimmer 2.4s ease-in-out infinite;
+    /* Kilap tipis di atas */
+    box-shadow: 0 1px 4px rgba(15, 157, 88, .35),
+        inset 0 1px 0 rgba(255, 255, 255, .4);
+    position: relative;
 }
 
 .cdt-progress-labels {
@@ -1230,6 +1296,11 @@ footer {
     .cdt-digits {
         font-size: clamp(28px, 10vw, 42px);
         padding: 8px 16px;
+    }
+
+    .cdt-clock-icon {
+        width: 22px;
+        height: 22px;
     }
 }
 

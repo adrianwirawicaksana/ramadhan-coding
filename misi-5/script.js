@@ -391,6 +391,37 @@ function formatTanggalHariIni() {
     };
 }
 
+/* ── SVG icon jam inline ── */
+const CLOCK_SVG = `
+<svg class="cdt-clock-icon" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Lingkaran luar -->
+  <circle cx="12" cy="12" r="10"
+          stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <!-- Tanda jam 12 -->
+  <line x1="12" y1="3.5" x2="12" y2="5.5"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 3 -->
+  <line x1="20.5" y1="12" x2="18.5" y2="12"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 6 -->
+  <line x1="12" y1="20.5" x2="12" y2="18.5"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 9 -->
+  <line x1="3.5" y1="12" x2="5.5" y2="12"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Jarum menit (panjang) — berputar via CSS -->
+  <line class="clock-hand-minute"
+        x1="12" y1="12" x2="12" y2="4.5"
+        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Jarum jam (pendek) — berputar lebih lambat via CSS -->
+  <line class="clock-hand-hour"
+        x1="12" y1="12" x2="16" y2="12"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- Titik tengah -->
+  <circle cx="12" cy="12" r="1.2" fill="currentColor"/>
+</svg>`;
+
 /* ════════════════════════════════════════
    COUNTDOWN — INIT & DESTROY
    ════════════════════════════════════════ */
@@ -479,9 +510,17 @@ function _cdTick(times) {
 
     /* Update kolom tengah */
     document.getElementById('cdtNextLabel').textContent = `Menuju ${next.label}`;
-    document.getElementById('cdtTimer').textContent = fmtSec(remaining);
+
+    /* ── Timer row: icon jam + digits ── */
+    document.getElementById('cdtTimer').innerHTML =
+        `<div class="cdt-timer-row">
+            ${CLOCK_SVG}
+            <span>${fmtSec(remaining)}</span>
+        </div>`;
+
     document.getElementById('cdtNextTime').textContent = next.rawTime ? `pukul ${next.rawTime}` : '';
 
+    /* Progress bar — width di-set JS, animasi shimmer via CSS */
     document.getElementById('cdtProgressFill').style.width = `${progress}%`;
     document.getElementById('cdtProgStart').textContent = `${prev.label} ${prev.rawTime || ''}`;
     document.getElementById('cdtProgEnd').textContent = `${next.label} ${next.rawTime || ''}`;
