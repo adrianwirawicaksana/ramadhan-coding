@@ -197,32 +197,35 @@ function showActions(boxId, wajib, resetFnName) {
     const box = document.getElementById(boxId);
     if (!box) return;
 
-    /* Hapus action box lama jika ada */
-    const existing = box.querySelector('.action-box');
+    /* Hapus action box lama jika ada (di luar result-box) */
+    const existing = document.getElementById(boxId + '-actions');
     if (existing) existing.remove();
 
     const ctaHtml = wajib
         ? `<a href="https://bayarzakat.baznas.go.id/bayarzakat"
               target="_blank" rel="noopener noreferrer"
               class="btn-action btn-bayar">
-              Bayar Zakat Sekarang
+              BAYAR ZAKAT
            </a>`
         : `<a href="https://donasi.baznas.go.id/donasi/sedekahsubuh"
               target="_blank" rel="noopener noreferrer"
               class="btn-action btn-sedekah">
-              Sedekah Subuh
+              SEDEKAH DULU
            </a>`;
 
     const div = document.createElement('div');
+    div.id = boxId + '-actions';
     div.className = 'action-box';
     div.innerHTML = `
         ${ctaHtml}
-        <button class="btn-reset" onclick="${resetFnName}()">↺ Hitung Ulang</button>
+        <button class="btn-reset" onclick="${resetFnName}()">↺ HITUNG ULANG</button>
     `;
-    box.appendChild(div);
+
+    /* Insert SETELAH result-box, bukan di dalamnya */
+    box.insertAdjacentElement('afterend', div);
 }
 
-/** Reset helper: kosongkan input, reset border, sembunyikan result box */
+/** Reset helper: kosongkan input, reset border, sembunyikan result box + action box */
 function resetForm(inputIds, autoIds, resultBoxId) {
     inputIds.forEach((id) => {
         const el = document.getElementById(id);
@@ -238,6 +241,8 @@ function resetForm(inputIds, autoIds, resultBoxId) {
     });
     const box = document.getElementById(resultBoxId);
     if (box) box.classList.remove('show');
+    const actions = document.getElementById(resultBoxId + '-actions');
+    if (actions) actions.remove();
 }
 
 /* ===== KALKULASI: PENGHASILAN ===== */

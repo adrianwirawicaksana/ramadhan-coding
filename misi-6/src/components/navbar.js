@@ -78,12 +78,12 @@ class SiteNavbar extends HTMLElement {
             }
 
             .nav-brand-icon {
-                width: 38px;
-                height: 38px;
+                width: 40px;
+                height: 40px;
             }
 
             .nav-brand-name {
-                font-size: 14px;
+                font-size: 15px;
             }
 
             /* ── Nav link base ── */
@@ -116,7 +116,7 @@ class SiteNavbar extends HTMLElement {
             /* ── Desktop ≥ 1024px ── */
             @media (min-width: 1024px) {
                 .nav-inner          { padding: 0 24px; height: 64px; }
-                .nav-brand-name     { font-size: 15px; }
+                .nav-brand-name     { font-size: 16px; }
                 .nav-desktop-cta    { display: flex; }
                 .nav-hamburger      { display: none; }
                 .nav-desktop-links  { display: flex; gap: 1px; }
@@ -266,7 +266,7 @@ class SiteNavbar extends HTMLElement {
                         </div>
                         <div>
                             <div class="nav-brand-name font-bold text-[#064E2B] leading-tight">${this._pageTitle}</div>
-                            <div style="font-size:9px;font-weight:600;color:#0F9D58;margin-top:1px">1447 H &bull; Panduan Lengkap</div>
+                            <div style="font-size:10px;font-weight:600;color:#0F9D58;margin-top:1px">1447 H &bull; Panduan Lengkap</div>
                         </div>
                     </a>
 
@@ -308,8 +308,8 @@ class SiteNavbar extends HTMLElement {
                             <img src="${b}assets/navbar/Bulan-ramadhan.svg" alt="Icon" width="22" height="22" />
                         </div>
                         <div>
-                            <div style="font-size:14px;font-weight:700;color:#064E2B;line-height:1.2">${this._pageTitle}</div>
-                            <div style="font-size:8.5px;font-weight:600;color:#0F9D58">1447 H &bull; Panduan Lengkap</div>
+                            <div style="font-size:15px;font-weight:700;color:#064E2B;line-height:1.2">${this._pageTitle}</div>
+                            <div style="font-size:10px;font-weight:600;color:#0F9D58">1447 H &bull; Panduan Lengkap</div>
                         </div>
                     </a>
                     <button id="mobileClose"

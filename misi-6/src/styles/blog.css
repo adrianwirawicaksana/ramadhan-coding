@@ -531,16 +531,16 @@
 }
 
 /* ════════════════════════════════════
-           FILTER BAR — dropdown style
+           FILTER BAR
            ════════════════════════════════════ */
 .filter-bar {
-    background: #fff;
-    border-bottom: var(--border);
+    background: transparent;
+    border-bottom: none;
+    box-shadow: none;
     position: sticky;
     top: 20;
     z-index: 90;
     width: 100%;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
 }
 
 .filter-inner {
@@ -550,6 +550,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    background: transparent;
+    border: none;
 }
 
 /* ── Dropdown wrapper ── */
@@ -584,7 +586,7 @@
     height: 38px;
     border: var(--border);
     border-radius: 8px;
-    background: var(--bg);
+    background: #ffffff;
     padding: 0 34px 0 14px;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
@@ -594,15 +596,16 @@
     outline: none;
     transition: border-color .15s, box-shadow .15s;
     min-width: 180px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
 }
 
 .filter-select:focus {
     border-color: var(--green);
     box-shadow: 0 0 0 3px rgba(15, 157, 88, .1);
-    background: var(--bg);
+    background: #ffffff;
 }
 
-/* Active indicator pill — muncul di sebelah dropdown kalau bukan "semua" */
+/* Active indicator pill */
 .filter-active-pill {
     display: none;
     align-items: center;
@@ -645,7 +648,7 @@
     height: 38px;
     border: var(--border);
     border-radius: 8px;
-    background: var(--bg);
+    background: #ffffff;
     padding: 0 14px 0 34px;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
@@ -653,13 +656,14 @@
     width: 180px;
     transition: width .2s, border-color .2s, box-shadow .2s;
     outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
 }
 
 .filter-search input:focus {
     width: 220px;
     border-color: var(--green);
     box-shadow: 0 0 0 3px rgba(15, 157, 88, .1);
-    background: var(--bg);
+    background: #ffffff;
 }
 
 .filter-search svg {
@@ -940,7 +944,6 @@
     background: rgba(15, 157, 88, .07);
     margin: 2px 0 16px;
     display: none;
-    /* we use margin-bottom on cards instead */
 }
 
 /* ── Empty state ── */
@@ -967,7 +970,7 @@
     align-items: center;
     gap: 7px;
     padding: 11px 28px;
-    background: transparent;
+    background: white;
     border: var(--border);
     border-radius: 99px;
     font-family: 'Poppins', sans-serif;
@@ -1142,7 +1145,6 @@
     letter-spacing: .06em;
 }
 
-/* Desktop: sembunyikan mobile search */
 .filter-search-mobile {
     display: none;
 }
@@ -1165,7 +1167,6 @@
         gap: 8px;
     }
 
-    /* Dropdown full-width di mobile */
     .filter-dropdown-wrap {
         width: 100%;
     }
@@ -1175,7 +1176,6 @@
         min-width: unset;
     }
 
-    /* Search juga full-width */
     .filter-search {
         margin-left: 0;
         width: 100%;

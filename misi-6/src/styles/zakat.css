@@ -423,27 +423,29 @@
 /* ===== ACTION BOX (Reset + CTA) ===== */
 .action-box {
     display: flex;
+    flex-direction: column;
     gap: 8px;
-    padding: 12px 14px 14px;
-    background: #f8fdf9;
-    border-top: 1px solid rgba(15, 157, 88, 0.12);
+    padding: 12px 0 0;
+    background: transparent;
+    border-top: none;
 }
 
 .btn-action {
-    flex: 1;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 11px 10px;
+    padding: 12px 10px;
     border-radius: 12px;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     text-decoration: none;
     text-align: center;
     transition: filter .12s ease, transform .12s ease;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 
 .btn-bayar {
@@ -477,14 +479,15 @@
 }
 
 .btn-reset {
-    flex-shrink: 0;
-    padding: 11px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
     border-radius: 12px;
     border: none;
     background: linear-gradient(180deg, #fb923c 0%, #ea580c 100%);
     color: white;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
