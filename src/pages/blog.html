@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="loader-basepath" content="../">
+    <title>Blog — Portal Ramadhan 1447 H</title>
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- TAILWIND CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FAVICON ICO -->
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico">
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../styles/blog.css">
+    <!-- IMPORT FOR COMPONENTS -->
+    <script src="../components/loader.js" defer></script>
+    <script src="../components/navbar.js" defer></script>
+    <script src="../components/footer.js" defer></script>
+</head>
+
+<body class="blog-page">
+    <site-navbar page="blog" basepath="../"></site-navbar>
+
+    <!-- MAIN -->
+    <main class="pt-[58px]">
+
+        <!-- BLOG HERO -->
+        <section class="blog-hero">
+            <div class="blog-hero-inner">
+                <div class="blog-hero-label">✦ Artikel &amp; Tips</div>
+                <h1 class="blog-hero-title">
+                    Inspirasi &amp; Ilmu<br>
+                    di Bulan <span class="hl">Ramadhan</span>
+                </h1>
+                <p class="blog-hero-desc">
+                    Kumpulan artikel islami, tips ibadah, dan panduan praktis untuk
+                    memaksimalkan setiap momen berharga di bulan suci Ramadhan.
+                </p>
+                <div class="article-count">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    <span id="totalCount">12 Artikel</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <div class="filter-inner">
+
+                <!-- Dropdown kategori -->
+                <div class="filter-dropdown-wrap">
+                    <select class="filter-select" id="filterSelect" onchange="onFilterChange(this.value)">
+                        <option value="semua">📋 Semua Kategori</option>
+                        <option value="tips-ibadah">🕌 Tips Ibadah</option>
+                        <option value="doa-zikir">🤲 Doa &amp; Zikir</option>
+                        <option value="keutamaan">🌟 Keutamaan Ramadhan</option>
+                        <option value="puasa">🌙 Panduan Puasa</option>
+                        <option value="zakat">💚 Zakat &amp; Sedekah</option>
+                        <option value="lailatul-qadar">⭐ Lailatul Qadar</option>
+                    </select>
+                </div>
+
+                <!-- Active filter pill -->
+                <div class="filter-active-pill" id="filterActivePill">
+                    <span id="filterActivePillLabel"></span>
+                    <button onclick="resetFilter()" title="Reset filter">✕</button>
+                </div>
+
+                <!-- Search -->
+                <div class="filter-search">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Cari artikel…">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- BLOG LAYOUT -->
+        <div class="blog-layout">
+
+            <!-- ARTICLE FEED -->
+            <div>
+                <div class="feed-label">
+                    <span class="feed-label-text">Artikel Terbaru</span>
+                    <span class="feed-count" id="feedCount"></span>
+                </div>
+
+                <div class="article-feed" id="articleFeed">
+                    <!-- Injected by JS -->
+                </div>
+
+                <div class="feed-empty" id="feedEmpty">
+                    <div style="font-size:36px;margin-bottom:10px">🔍</div>
+                    <div style="font-weight:700;color:var(--text-mid);margin-bottom:4px">Artikel tidak ditemukan</div>
+                    <div>Coba kata kunci atau kategori yang berbeda.</div>
+                </div>
+
+                <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+                    <button class="btn-load-more" id="loadMoreBtn" onclick="loadMore()">
+                        Muat Lebih Banyak
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <aside class="blog-sidebar">
+
+                <!-- Popular -->
+                <div class="sidebar-box sidebar-popular">
+                    <div class="sidebar-title">
+                        🔥 Artikel Populer
+                    </div>
+                    <div id="popularList">
+                        <!-- injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="sidebar-box">
+                    <div class="sidebar-title">
+                        🏷️ Topik
+                    </div>
+                    <div class="tag-cloud" id="tagCloud">
+                        <!-- injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Hadith -->
+                <div class="sidebar-hadith">
+                    <p class="sidebar-hadith-text">
+                        "Barang siapa yang berpuasa Ramadhan dengan penuh keimanan dan
+                        mengharap pahala dari Allah, maka diampuni dosa-dosanya yang telah lalu."
+                    </p>
+                    <div class="sidebar-hadith-src">HR. Bukhari &amp; Muslim</div>
+                </div>
+
+            </aside>
+        </div>
+
+    </main>
+    <!-- ARTICLE MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+    <div class="article-modal" id="articleModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-progress" id="modalProgress"></div>
+
+        <!-- Header -->
+        <div class="modal-header">
+            <div class="modal-header-meta">
+                <span class="modal-category-badge" id="modalCategory">—</span>
+                <span class="modal-read-time" id="modalReadTime">—</span>
+            </div>
+            <button class="modal-close" onclick="closeModal()" aria-label="Tutup artikel">✕</button>
+        </div>
+
+        <!-- Scrollable body -->
+        <div class="modal-body" id="modalBodyEl">
+
+            <!-- Hero -->
+            <div class="modal-hero">
+                <span class="modal-emoji" id="modalEmoji">📖</span>
+                <h2 class="modal-title" id="modalTitle">—</h2>
+                <div class="modal-byline">
+                    <div class="modal-author">
+                        <div class="modal-author-avatar" id="modalAuthorAvatar">👤</div>
+                        <span id="modalAuthorName">—</span>
+                    </div>
+                    <span class="modal-date" id="modalDate">—</span>
+                </div>
+            </div>
+
+            <!-- Content injected by JS -->
+            <div class="modal-content" id="modalContent"></div>
+
+            <!-- Related -->
+            <div class="modal-footer">
+                <div class="modal-footer-title">✦ Artikel Terkait</div>
+                <div class="modal-related" id="modalRelated"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <site-footer
+        quote="Apabila datang bulan Ramadhan, pintu-pintu surga dibuka, pintu-pintu neraka ditutup, dan setan-setan dibelenggu."
+        source="HR. Sahih Bukhari &amp; Sahih Muslim">
+    </site-footer>
+
+</body>
+
+<!-- JS -->
+<script src="../js/blog.js"></script>
+
+</html>
