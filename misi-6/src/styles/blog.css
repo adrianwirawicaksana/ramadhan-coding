@@ -531,16 +531,18 @@
 }
 
 /* ════════════════════════════════════
-           FILTER BAR
+           FILTER BAR — FIX: sticky cream navbar
            ════════════════════════════════════ */
 .filter-bar {
-    background: transparent;
-    border-bottom: none;
-    box-shadow: none;
     position: sticky;
-    top: 20;
+    top: 58px;
+    /* tinggi navbar utama */
     z-index: 90;
     width: 100%;
+    background: #F6F3E9;
+    /* cream */
+    border-bottom: 1px solid rgba(15, 157, 88, .13);
+    box-shadow: 0 2px 8px rgba(15, 80, 40, .06);
 }
 
 .filter-inner {
@@ -584,7 +586,7 @@
     appearance: none;
     -webkit-appearance: none;
     height: 38px;
-    border: var(--border);
+    border: 1.5px solid rgba(15, 157, 88, .25);
     border-radius: 8px;
     background: #ffffff;
     padding: 0 34px 0 14px;
@@ -646,7 +648,7 @@
 
 .filter-search input {
     height: 38px;
-    border: var(--border);
+    border: 1.5px solid rgba(15, 157, 88, .25);
     border-radius: 8px;
     background: #ffffff;
     padding: 0 14px 0 34px;
@@ -1118,7 +1120,7 @@
 }
 
 .sidebar-hadith::before {
-    content: '\275D';
+    content: '';
     position: absolute;
     top: -14px;
     left: 10px;
@@ -1159,6 +1161,11 @@
 
     .blog-hero-inner {
         padding: 0 20px;
+    }
+
+    .filter-bar {
+        top: 58px;
+        /* tetap sticky di bawah navbar */
     }
 
     .filter-inner {

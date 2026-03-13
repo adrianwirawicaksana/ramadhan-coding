@@ -87,6 +87,8 @@ body {
     overflow: hidden;
     transition: transform .28s cubic-bezier(.4, 0, .2, 1);
     box-shadow: 2px 0 16px rgba(15, 80, 40, .05);
+    padding-top: 60px;
+    /* tinggi navbar utama */
 }
 
 .q-sidebar-head {
@@ -344,6 +346,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding-top: 60px;
+    /* tinggi navbar utama */
 }
 
 .q-content {
@@ -425,7 +429,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 16px;
-    background: linear-gradient(135deg, var(--teal), var(--yellow));
+    background: linear-gradient(135deg, var(--teal-light), var(--yellow));
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
 }
@@ -571,17 +575,14 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 10.5px;
     font-weight: 600;
-    /* padding kanan lebih lebar buat ruang arrow custom */
     padding: 7px 30px 7px 10px;
     cursor: pointer;
     outline: none;
     flex-shrink: 0;
     max-width: 180px;
-    /* hapus arrow bawaan browser */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* arrow custom: segitiga hijau tengah vertikal */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23064E2B'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
@@ -678,6 +679,14 @@ body {
 }
 
 /* ══════════════════════════════════
+   SURAH VIEW WRAPPER
+══════════════════════════════════ */
+#qView {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ══════════════════════════════════
    AYAT WRAP & BISMILLAH
 ══════════════════════════════════ */
 .q-ayat-wrap {
@@ -687,8 +696,6 @@ body {
     gap: 0;
     background: linear-gradient(180deg, var(--cream) 0%, var(--cream-mid) 100%);
 }
-
-
 
 /* ══════════════════════════════════
    AYAT CARD — Putih bersih, selalu
@@ -1017,7 +1024,7 @@ body {
 /* ── OVERLAY mobile ── */
 .q-overlay {
     display: none;
-    position: absolute;
+    position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, .42);
     backdrop-filter: blur(3px);
@@ -1055,11 +1062,11 @@ body {
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
     .q-sidebar {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
-        height: 100%;
+        width: var(--sidebar-w);
         z-index: 45;
         transform: translateX(-100%);
         box-shadow: 6px 0 24px rgba(0, 0, 0, .12);
@@ -1071,6 +1078,35 @@ body {
 
     .q-mobile-toggle {
         display: flex;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        z-index: 35;
+        background: var(--cream);
+        border-bottom: 1px solid rgba(15, 157, 88, .15);
+        box-shadow: 0 2px 8px rgba(15, 80, 40, .06);
+    }
+
+    .q-mobile-toggle button {
+        background: #fff;
+        border: 1.5px solid var(--green);
+        color: var(--green-dark);
+        font-weight: 600;
+    }
+
+    .q-mobile-toggle button:hover {
+        background: var(--lime);
+    }
+
+    /* mobile: reset padding q-main */
+    .q-main {
+        padding-top: 0 !important;
+    }
+
+    /* konten turun melewati navbar (60px) + toggle bar (44px) = 104px */
+    .q-content {
+        padding-top: 114px;
     }
 
     .q-arabic {
