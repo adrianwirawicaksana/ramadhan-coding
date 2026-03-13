@@ -535,14 +535,21 @@
            ════════════════════════════════════ */
 .filter-bar {
     position: sticky;
-    top: 58px;
-    /* tinggi navbar utama */
+    top: 64px;
+    /* sesuai tinggi navbar */
     z-index: 90;
     width: 100%;
     background: #F6F3E9;
-    /* cream */
     border-bottom: 1px solid rgba(15, 157, 88, .13);
     box-shadow: 0 2px 8px rgba(15, 80, 40, .06);
+    /* FIX: isolate stacking context tanpa merusak sticky */
+    isolation: isolate;
+}
+
+/* FIX: blog-hero overflow:hidden bisa ciptakan masalah di beberapa browser */
+.blog-hero {
+    overflow: clip;
+    /* clip tidak block sticky, hidden bisa */
 }
 
 .filter-inner {
@@ -1120,7 +1127,7 @@
 }
 
 .sidebar-hadith::before {
-    content: '';
+    content: '½D';
     position: absolute;
     top: -14px;
     left: 10px;
