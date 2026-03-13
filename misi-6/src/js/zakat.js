@@ -185,6 +185,61 @@ function switchTab(tab) {
     document.getElementById('res-dagang').classList.remove('show');
 }
 
+/* ===== HELPER: TOMBOL AKSI (RESET + CTA) ===== */
+
+/**
+ * Tampilkan action box di bawah result box.
+ * @param {string} boxId      - ID result-box
+ * @param {boolean} wajib     - true = wajib zakat, false = belum wajib
+ * @param {string} resetFnName - nama fungsi reset (string, dipanggil via onclick)
+ */
+function showActions(boxId, wajib, resetFnName) {
+    const box = document.getElementById(boxId);
+    if (!box) return;
+
+    /* Hapus action box lama jika ada */
+    const existing = box.querySelector('.action-box');
+    if (existing) existing.remove();
+
+    const ctaHtml = wajib
+        ? `<a href="https://bayarzakat.baznas.go.id/bayarzakat"
+              target="_blank" rel="noopener noreferrer"
+              class="btn-action btn-bayar">
+              Bayar Zakat Sekarang
+           </a>`
+        : `<a href="https://donasi.baznas.go.id/donasi/sedekahsubuh"
+              target="_blank" rel="noopener noreferrer"
+              class="btn-action btn-sedekah">
+              Sedekah Subuh
+           </a>`;
+
+    const div = document.createElement('div');
+    div.className = 'action-box';
+    div.innerHTML = `
+        ${ctaHtml}
+        <button class="btn-reset" onclick="${resetFnName}()">↺ Hitung Ulang</button>
+    `;
+    box.appendChild(div);
+}
+
+/** Reset helper: kosongkan input, reset border, sembunyikan result box */
+function resetForm(inputIds, autoIds, resultBoxId) {
+    inputIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.value = '';
+        el.style.background = '';
+        const wrap = el.closest('.input-wrap');
+        if (wrap) wrap.style.borderColor = '';
+    });
+    autoIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+    });
+    const box = document.getElementById(resultBoxId);
+    if (box) box.classList.remove('show');
+}
+
 /* ===== KALKULASI: PENGHASILAN ===== */
 
 function autoCalcPenghasilan() {
@@ -211,7 +266,12 @@ function hitungPenghasilan() {
     setTxt('rp-zakat', wajib ? rp(jumlahBulan * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-penghasilan').classList.add('show');
+    showActions('res-penghasilan', wajib, 'resetPenghasilan');
     scrollToResult('res-penghasilan');
+}
+
+function resetPenghasilan() {
+    resetForm(['peng-gaji', 'peng-lain'], ['peng-jumlah'], 'res-penghasilan');
 }
 
 /* ===== KALKULASI: PERUSAHAAN JASA ===== */
@@ -232,7 +292,12 @@ function hitungJasa() {
     setTxt('rj-zakat', wajib ? rp(pendapatan * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-jasa').classList.add('show');
+    showActions('res-jasa', wajib, 'resetJasa');
     scrollToResult('res-jasa');
+}
+
+function resetJasa() {
+    resetForm(['jasa-pendapatan'], [], 'res-jasa');
 }
 
 /* ===== KALKULASI: PERUSAHAAN DAGANG / INDUSTRI ===== */
@@ -258,7 +323,12 @@ function hitungDagang() {
     setTxt('rd-zakat', wajib ? rp(jumlah * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-dagang').classList.add('show');
+    showActions('res-dagang', wajib, 'resetDagang');
     scrollToResult('res-dagang');
+}
+
+function resetDagang() {
+    resetForm(['ind-aktiva', 'ind-pasiva'], ['ind-jumlah'], 'res-dagang');
 }
 
 /* ===== KALKULASI: PERDAGANGAN ===== */
@@ -284,7 +354,12 @@ function hitungPerdagangan() {
     setTxt('rpd-zakat', wajib ? rp(jumlah * 0.025) : 'Belum Wajib');
 
     document.getElementById('res-perdagangan').classList.add('show');
+    showActions('res-perdagangan', wajib, 'resetPerdagangan');
     scrollToResult('res-perdagangan');
+}
+
+function resetPerdagangan() {
+    resetForm(['dag-aset', 'dag-laba'], ['dag-jumlah'], 'res-perdagangan');
 }
 
 /* ===== KALKULASI: EMAS ===== */
@@ -313,5 +388,10 @@ function hitungEmas() {
     );
 
     document.getElementById('res-emas').classList.add('show');
+    showActions('res-emas', wajib, 'resetEmas');
     scrollToResult('res-emas');
+}
+
+function resetEmas() {
+    resetForm(['em-berat'], [], 'res-emas');
 }

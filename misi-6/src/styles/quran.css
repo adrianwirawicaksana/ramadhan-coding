@@ -1,0 +1,1127 @@
+/* ══════════════════════════════════
+   DESIGN TOKENS — Warm Ramadan Palette
+   Terinspirasi dari tema doa.html:
+   krem hangat + hijau sakral + emas
+══════════════════════════════════ */
+:root {
+    /* ── Palette kuning → lime → teal ── */
+    --yellow: #FEF9C3;
+    --lime: #D9F99D;
+    --teal-light: #A7F3D0;
+    --yellow-mid: #FDE68A;
+    --lime-mid: #BBF7D0;
+    --teal-mid: #6EE7B7;
+    --teal-dark: #059669;
+    --green-dark: #064E2B;
+    --green-mid: #0a7a3e;
+    --green: #0F9D58;
+
+    /* ── GRADIENT: HANYA kuning → lime (sesuai permintaan) ── */
+    --grad-main: linear-gradient(135deg, #FEF9C3 0%, #D9F99D 50%, #A7F3D0 100%);
+    --grad-vivid: linear-gradient(135deg, #FDE68A 0%, #BBF7D0 100%);
+
+    /* ── Cream background ── */
+    --cream: #F6F3E9;
+    --cream-mid: #F8F5EE;
+    --cream-deep: #F1ECE2;
+
+    /* ── Text — HITAM di atas gradient ── */
+    --text: #111827;
+    --text-on-grad: #111827;
+    /* selalu hitam di atas grad-main */
+    --muted: #4B5563;
+    --muted-light: #9CA3AF;
+
+    /* ── Borders ── */
+    --border: rgba(15, 157, 88, .14);
+    --border-grad: rgba(110, 231, 183, .5);
+
+    /* ── Misc ── */
+    --radius: 14px;
+    --sidebar-w: 300px;
+
+    /* ── Shadow ── */
+    --shadow-sm: 0 2px 12px rgba(15, 80, 40, .07);
+    --shadow-md: 0 6px 28px rgba(15, 80, 40, .12);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+}
+
+/* ══════════════════════════════════
+   APP WRAPPER
+══════════════════════════════════ */
+.quran-app {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--cream-mid) 50%, var(--cream-deep) 100%);
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════
+   SIDEBAR — putih bersih dengan aksen krem
+══════════════════════════════════ */
+.q-sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1);
+    box-shadow: 2px 0 16px rgba(15, 80, 40, .05);
+}
+
+.q-sidebar-head {
+    padding: 16px 14px 12px;
+    border-bottom: 1px solid rgba(167, 243, 208, .6);
+    flex-shrink: 0;
+    background: var(--grad-main);
+}
+
+.q-sidebar-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    letter-spacing: .3px;
+    text-transform: uppercase;
+}
+
+.q-sidebar-title svg {
+    color: var(--green-dark);
+}
+
+/* Search */
+.q-search {
+    position: relative;
+}
+
+.q-search input {
+    width: 100%;
+    padding: 8px 12px 8px 34px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11.5px;
+    color: var(--text);
+    outline: none;
+    transition: border .2s, box-shadow .2s;
+}
+
+.q-search input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(15, 157, 88, .1);
+}
+
+.q-search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+}
+
+/* Tabs */
+.q-tabs {
+    display: flex;
+    gap: 3px;
+    margin-top: 9px;
+    background: var(--green);
+    border-radius: 10px;
+    padding: 3px;
+    border: 1px solid var(--green);
+}
+
+.q-tab {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, .7);
+    background: transparent;
+    transition: all .2s;
+}
+
+.q-tab.active {
+    background: #fff;
+    color: var(--green-dark);
+    box-shadow: var(--shadow-sm);
+}
+
+/* List */
+.q-sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+.q-sidebar-list::-webkit-scrollbar {
+    width: 3px;
+}
+
+.q-sidebar-list::-webkit-scrollbar-thumb {
+    background: rgba(15, 157, 88, .2);
+    border-radius: 99px;
+}
+
+/* Surat item */
+.q-surat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s, box-shadow .15s;
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.q-surat-item:hover {
+    background: var(--grad-main);
+}
+
+.q-surat-item.active {
+    background: linear-gradient(135deg, rgba(15, 157, 88, .08), rgba(167, 243, 208, .3));
+    border-color: rgba(167, 243, 208, .6);
+}
+
+.q-surat-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 20%;
+    bottom: 20%;
+    width: 3px;
+    background: var(--green);
+    border-radius: 0 99px 99px 0;
+}
+
+.q-surat-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--green);
+    border: none;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    transition: opacity .15s;
+}
+
+.q-surat-item.active .q-surat-num {
+    opacity: .85;
+}
+
+.q-surat-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.q-surat-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.q-surat-meta {
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.q-dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--muted-light);
+}
+
+.q-surat-ar {
+    font-family: 'Amiri', serif;
+    font-size: 16px;
+    color: var(--green-dark);
+    flex-shrink: 0;
+}
+
+/* Juz item */
+.q-juz-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s;
+    border: 1px solid transparent;
+}
+
+.q-surat-item:hover .q-surat-name,
+.q-surat-item:hover .q-surat-ar {
+    color: #111827;
+}
+
+.q-juz-item:hover {
+    background: var(--grad-main);
+}
+
+.q-juz-item:hover .q-juz-label {
+    color: #111827;
+}
+
+.q-juz-item.active {
+    background: linear-gradient(135deg, rgba(15, 157, 88, .08), rgba(167, 243, 208, .3));
+    border-color: rgba(167, 243, 208, .6);
+}
+
+.q-juz-badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--green);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(15, 80, 40, .2);
+}
+
+.q-juz-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.q-juz-sub {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+/* ══════════════════════════════════
+   MAIN PANEL
+══════════════════════════════════ */
+.q-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.q-content {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.q-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.q-content::-webkit-scrollbar-thumb {
+    background: rgba(15, 157, 88, .18);
+    border-radius: 99px;
+}
+
+/* ── WELCOME ── */
+.q-welcome {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    text-align: center;
+    gap: 16px;
+}
+
+.q-welcome-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
+    background: var(--grad-main);
+    border: 2px solid rgba(167, 243, 208, .6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    box-shadow: var(--shadow-md);
+}
+
+.q-welcome h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+.q-welcome p {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 340px;
+    line-height: 1.8;
+}
+
+.q-welcome-hint {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.q-hint-chip {
+    padding: 5px 14px;
+    border-radius: 99px;
+    background: var(--green);
+    border: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(15, 80, 40, .15);
+}
+
+/* ── MOBILE TOGGLE ── */
+.q-mobile-toggle {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, var(--teal), var(--yellow));
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.q-mobile-toggle button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid var(--border);
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green-dark);
+    cursor: pointer;
+    transition: background .15s;
+}
+
+.q-mobile-toggle button:hover {
+    background: var(--lime);
+}
+
+.q-mobile-toggle .q-cur-surah {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--green-dark);
+    text-align: right;
+}
+
+/* ══════════════════════════════════
+   SURAH HEADER — Gradient hijau kaya
+══════════════════════════════════ */
+.q-surah-head {
+    background: var(--grad-main);
+    padding: 28px 28px 22px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.q-surah-head::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 10% 90%, rgba(167, 243, 208, .4) 0%, transparent 45%),
+        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, .06) 0%, transparent 40%);
+}
+
+.q-surah-head::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--teal-mid), var(--teal-dark), transparent);
+    opacity: .7;
+}
+
+.q-surah-head-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.q-surah-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.q-surah-top-info h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.q-surah-top-info p {
+    font-size: 12px;
+    color: #374151;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+.q-surah-arabic {
+    font-family: 'Amiri', serif;
+    font-size: 40px;
+    color: #111827;
+    line-height: 1;
+}
+
+/* Badges */
+.q-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.q-badge {
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, .65);
+    color: #111827;
+    border: 1px solid rgba(110, 231, 183, .6);
+    backdrop-filter: blur(4px);
+}
+
+.q-badge.gold {
+    background: rgba(255, 255, 255, .8);
+    border-color: rgba(110, 231, 183, .8);
+    color: var(--green-dark);
+}
+
+/* ══════════════════════════════════
+   AUDIO PLAYER — Glassmorphism hangat
+══════════════════════════════════ */
+.q-audio {
+    background: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(167, 243, 208, .7);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    backdrop-filter: blur(12px);
+}
+
+.q-qari-select {
+    background: rgba(255, 255, 255, .7);
+    border: 1px solid rgba(167, 243, 208, .8);
+    border-radius: 8px;
+    color: var(--green-dark);
+    font-family: 'Poppins', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    /* padding kanan lebih lebar buat ruang arrow custom */
+    padding: 7px 30px 7px 10px;
+    cursor: pointer;
+    outline: none;
+    flex-shrink: 0;
+    max-width: 180px;
+    /* hapus arrow bawaan browser */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* arrow custom: segitiga hijau tengah vertikal */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23064E2B'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 8px 5px;
+    line-height: 1.4;
+    vertical-align: middle;
+}
+
+.q-qari-select option {
+    background: #fff;
+    color: var(--green-dark);
+}
+
+.q-audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.btn-aud {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid rgba(167, 243, 208, .8);
+    color: var(--green-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: background .15s, transform .1s;
+    flex-shrink: 0;
+}
+
+.btn-aud:hover {
+    background: rgba(255, 255, 255, .9);
+    transform: scale(1.05);
+}
+
+.btn-aud.play-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 12px rgba(15, 80, 40, .25);
+}
+
+.btn-aud.play-btn:hover {
+    opacity: .9;
+}
+
+.q-audio-bar {
+    flex: 1;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.q-audio-label {
+    font-size: 10.5px;
+    color: var(--green-dark);
+    font-weight: 600;
+}
+
+.q-progress {
+    width: 100%;
+    height: 4px;
+    border-radius: 99px;
+    appearance: none;
+    background: rgba(167, 243, 208, .5);
+    cursor: pointer;
+    outline: none;
+}
+
+.q-progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--teal-dark);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+}
+
+.q-audio-time {
+    font-size: 10px;
+    color: var(--green-mid);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ══════════════════════════════════
+   AYAT WRAP & BISMILLAH
+══════════════════════════════════ */
+.q-ayat-wrap {
+    padding: 20px 20px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-mid) 100%);
+}
+
+
+
+/* ══════════════════════════════════
+   AYAT CARD — Putih bersih, selalu
+══════════════════════════════════ */
+.q-ayat {
+    border-radius: 14px;
+    padding: 22px 22px 18px;
+    margin-bottom: 8px;
+    background: #fff;
+    border: 1px solid rgba(167, 243, 208, .4);
+    box-shadow: 0 1px 6px rgba(15, 80, 40, .05);
+    transition: border-color .2s, box-shadow .2s, transform .15s;
+    animation: qFadeUp .25s ease both;
+    position: relative;
+}
+
+.q-ayat:hover {
+    border-color: rgba(15, 157, 88, .28);
+    box-shadow: 0 4px 18px rgba(15, 80, 40, .1);
+    transform: translateY(-1px);
+}
+
+/* Active/playing — highlight hijau */
+.q-ayat.playing {
+    background: #fff;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(15, 157, 88, .1), 0 4px 16px rgba(15, 80, 40, .1);
+}
+
+/* Left accent bar saat playing */
+.q-ayat.playing::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--green), var(--gold));
+    border-radius: 0 3px 3px 0;
+}
+
+@keyframes qFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.q-ayat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.q-ayat-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--green);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(15, 80, 40, .2);
+    transition: all .2s;
+}
+
+.q-ayat.playing .q-ayat-num {
+    background: var(--green);
+    box-shadow: 0 2px 12px rgba(167, 243, 208, .7);
+}
+
+.q-ayat-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-ayat-act {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: all .15s;
+}
+
+.btn-ayat-act:hover {
+    background: var(--lime);
+    color: var(--green-dark);
+    border-color: rgba(15, 157, 88, .28);
+}
+
+.btn-ayat-act.bm-active {
+    background: var(--yellow-mid);
+    color: var(--teal-dark);
+    border-color: rgba(167, 243, 208, .6);
+}
+
+/* ══════════════════════════════════
+   TEKS ARAB — BESAR & NYAMAN
+══════════════════════════════════ */
+.q-arabic {
+    font-family: 'Amiri Quran', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    color: #111827;
+    text-align: right;
+    direction: rtl;
+    line-height: 2.6;
+    margin-bottom: 14px;
+    word-spacing: .2em;
+    padding: 20px 22px;
+    background: var(--grad-main);
+    border-radius: 12px;
+    border: 1px solid rgba(110, 231, 183, .5);
+}
+
+/* Latin / transliterasi */
+.q-latin {
+    font-family: 'Amiri', serif;
+    font-size: 18px;
+    color: var(--green-mid);
+    font-style: italic;
+    line-height: 1.9;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+/* Terjemahan */
+.q-trans {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.9;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(209, 250, 229, .2);
+    border-left: 3px solid var(--green);
+    margin-top: 6px;
+}
+
+/* Divider antar surat (mode juz) */
+.q-surat-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 4px 14px;
+}
+
+.q-surat-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(167, 243, 208, .7), transparent);
+}
+
+.q-surat-divider-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--grad-main);
+    border: 1px solid rgba(110, 231, 183, .5);
+    border-radius: 99px;
+    padding: 7px 20px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 14px rgba(15, 80, 40, .15);
+}
+
+.q-surat-divider-badge span:first-child {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.q-surat-divider-badge span:last-child {
+    font-family: 'Amiri', serif;
+    font-size: 18px;
+    color: #111827;
+}
+
+/* ══════════════════════════════════
+   MINI PLAYER — Dark green + gold
+══════════════════════════════════ */
+.q-mini {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--green);
+    backdrop-filter: blur(16px);
+    border-top: 2px solid rgba(110, 231, 183, .4);
+    padding: 10px 18px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    z-index: 200;
+}
+
+.q-mini.on {
+    display: flex;
+}
+
+.q-mini-info {
+    min-width: 0;
+    flex-shrink: 1;
+    overflow: hidden;
+}
+
+.q-mini-surah {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.q-mini-ayat {
+    font-size: 10px;
+    color: rgba(255, 255, 255, .5);
+}
+
+.q-mini-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.q-mini-progress {
+    flex: 1;
+    height: 3px;
+    border-radius: 99px;
+    appearance: none;
+    background: rgba(167, 243, 208, .25);
+    cursor: pointer;
+    outline: none;
+}
+
+.q-mini-progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--teal-mid);
+}
+
+.q-mini-time {
+    font-size: 10px;
+    color: rgba(255, 255, 255, .5);
+    white-space: nowrap;
+}
+
+.q-mini-ctrl {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.q-mini-ctrl .btn-aud {
+    background: rgba(255, 255, 255, .15);
+    border-color: rgba(167, 243, 208, .3);
+    color: #fff;
+}
+
+.q-mini-ctrl .btn-aud:hover {
+    background: rgba(255, 255, 255, .25);
+}
+
+.q-mini-ctrl .btn-aud.play-btn {
+    background: var(--grad-main);
+    color: var(--green-dark);
+    border: none;
+}
+
+/* ── LOADER / ERROR ── */
+.q-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.q-spinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid var(--border);
+    border-top-color: var(--green);
+    animation: spin .65s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.q-err {
+    margin: 16px 20px;
+    padding: 12px 14px;
+    background: #fff5f5;
+    border: 1px solid #fca5a5;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #b91c1c;
+}
+
+/* ── OVERLAY mobile ── */
+.q-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .42);
+    backdrop-filter: blur(3px);
+    z-index: 40;
+}
+
+.q-overlay.on {
+    display: block;
+}
+
+/* Toast */
+.q-toast {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--green-dark);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 99px;
+    font-size: 11.5px;
+    font-weight: 600;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+    white-space: nowrap;
+    border: 1px solid rgba(167, 243, 208, .4);
+}
+
+.q-toast.show {
+    opacity: 1;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .q-sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        z-index: 45;
+        transform: translateX(-100%);
+        box-shadow: 6px 0 24px rgba(0, 0, 0, .12);
+    }
+
+    .q-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .q-mobile-toggle {
+        display: flex;
+    }
+
+    .q-arabic {
+        font-size: clamp(28px, 6vw, 36px);
+        line-height: 2.4;
+        padding: 16px 14px;
+    }
+
+    /* Mini player — layout dua baris di mobile */
+    .q-mini {
+        flex-wrap: wrap;
+        padding: 8px 12px;
+        gap: 6px;
+        row-gap: 6px;
+    }
+
+    /* Baris 1: info (kiri) + kontrol (kanan) */
+    .q-mini-info {
+        flex: 1;
+        min-width: 0;
+        order: 1;
+    }
+
+    .q-mini-ctrl {
+        order: 2;
+        flex-shrink: 0;
+    }
+
+    /* Baris 2: progress bar full width */
+    .q-mini-bar {
+        order: 3;
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    /* Tombol lebih kecil di mobile */
+    .q-mini-ctrl .btn-aud {
+        width: 30px;
+        height: 30px;
+    }
+
+    .q-mini-ctrl .btn-aud.play-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .q-mini-surah {
+        font-size: 11px;
+    }
+
+    .q-mini-ayat {
+        font-size: 9.5px;
+    }
+}

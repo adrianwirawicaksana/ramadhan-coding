@@ -216,12 +216,11 @@ main {
     margin-bottom: 14px
 }
 
-/* ── STATE ICON ── */
 .state-icon {
     font-size: 36px
 }
 
-/* ── CARD BOX (gradient background) ── */
+/* ── CARD BOX ── */
 .g-box {
     background: var(--grad);
     border: var(--border);
@@ -234,7 +233,7 @@ main {
 }
 
 #sectionKontrol {
-    z-index: 50
+    z-index: 90
 }
 
 .card-heading {
@@ -243,14 +242,6 @@ main {
     letter-spacing: .08em;
     color: var(--green);
     text-transform: uppercase;
-}
-
-.heading-bar {
-    width: 36px;
-    height: 3px;
-    background: var(--green);
-    border-radius: 99px;
-    margin-top: 5px;
 }
 
 /* ════════════════════════════════════════
@@ -403,7 +394,7 @@ main {
 }
 
 /* ════════════════════════════════════════
-   KOTA CHIP (selected city info)
+   KOTA CHIP
    ════════════════════════════════════════ */
 .kota-chip {
     display: none;
@@ -443,7 +434,7 @@ main {
 }
 
 /* ════════════════════════════════════════
-   STATE BOXES (loading / error / empty)
+   STATE BOXES
    ════════════════════════════════════════ */
 .state-box {
     display: none;
@@ -541,6 +532,8 @@ main {
     border-radius: 8px;
     border: var(--border);
     background: #fff;
+    max-height: 480px;
+    overflow-y: auto;
 }
 
 .table-wrap.show {
@@ -556,10 +549,11 @@ table {
 }
 
 thead tr {
-    background: var(--green)
+    background: transparent
 }
 
 thead th {
+    background: var(--green);
     color: #fff;
     font-weight: 700;
     font-size: 11px;
@@ -568,6 +562,9 @@ thead th {
     padding: 12px 13px;
     text-align: center;
     white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 
 thead th:first-child {
@@ -609,7 +606,6 @@ tbody td:first-child {
     font-size: 12px;
 }
 
-/* Today highlight row */
 tbody tr.today-row {
     background: rgba(15, 157, 88, .07) !important;
     border-left: 3px solid var(--green)
@@ -640,7 +636,7 @@ tbody tr.today-row .time-badge {
 }
 
 /* ════════════════════════════════════════
-   SWIPE HINT (mobile)
+   SWIPE HINT
    ════════════════════════════════════════ */
 .swipe-hint {
     display: none;
@@ -831,7 +827,7 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   PAGE LOADER (overlay) — bounce mascot
+   PAGE LOADER
    ════════════════════════════════════════ */
 @keyframes mascotBounce {
 
@@ -907,7 +903,6 @@ footer {
     margin-bottom: clamp(14px, 3vw, 28px);
 }
 
-/* Base (mobile-first: hp kecil ≤480px) */
 .loader-mascot {
     width: clamp(80px, 18vw, 200px);
     height: clamp(80px, 18vw, 200px);
@@ -959,7 +954,6 @@ footer {
     animation-delay: .24s
 }
 
-/* keep these for compat (no longer rendered) */
 .loader-ring {
     display: none
 }
@@ -973,17 +967,352 @@ footer {
 }
 
 /* ════════════════════════════════════════
-   RESPONSIVE
+   COUNTDOWN WIDGET
    ════════════════════════════════════════ */
 
-/* Tablet (481px – 900px) */
+@keyframes cdtPop {
+    0% {
+        transform: scale(1.12);
+        opacity: .7
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1
+    }
+}
+
+/* ── Animasi jarum jam berputar ── */
+@keyframes clockHandSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Shimmer progress bar ── */
+@keyframes progressShimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* ─────────────────────────────
+   Section head: heading kiri + tanggal kanan
+───────────────────────────── */
+#sectionCountdown .section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+/* Tanggal pill — muncul di pojok kanan section head */
+.cdt-date-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.cdt-date-day {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    line-height: 1;
+}
+
+.cdt-date-full {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    letter-spacing: .01em;
+    white-space: nowrap;
+}
+
+/* ─────────────────────────────
+   Grid utama
+───────────────────────────── */
+.cdt-wrap {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+}
+
+/* ─────────────────────────────
+   Kolom kiri — periode aktif
+───────────────────────────── */
+.cdt-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, .55);
+    border: var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    min-width: 80px;
+    text-align: center;
+}
+
+.cdt-period-icon {
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.cdt-period-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    line-height: 1.3;
+}
+
+.cdt-period-time {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .04em;
+}
+
+/* ─────────────────────────────
+   Kolom tengah — hitung mundur
+───────────────────────────── */
+.cdt-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.cdt-next-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--text-light);
+}
+
+/* ── Wrapper icon + digits ── */
+.cdt-timer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ── Icon jam SVG ── */
+.cdt-clock-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: var(--green);
+    opacity: .85;
+}
+
+/* Jarum menit berputar — target elemen #clockMinuteHand di dalam SVG */
+.cdt-clock-icon .clock-hand-minute {
+    transform-origin: 12px 12px;
+    animation: clockHandSpin 60s linear infinite;
+}
+
+/* Jarum jam berputar lebih lambat */
+.cdt-clock-icon .clock-hand-hour {
+    transform-origin: 12px 12px;
+    animation: clockHandSpin 720s linear infinite;
+}
+
+.cdt-digits {
+    font-size: clamp(32px, 7vw, 52px);
+    font-weight: 700;
+    color: var(--green);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .04em;
+    background: rgba(255, 255, 255, .7);
+    border: var(--border);
+    border-radius: 12px;
+    padding: 10px 20px;
+    line-height: 1;
+    box-shadow: 0 2px 12px rgba(15, 157, 88, .1);
+    animation: cdtPop .15s ease both;
+}
+
+.cdt-next-time {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* ─────────────────────────────
+   Progress bar — smooth animated
+───────────────────────────── */
+.cdt-progress-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(15, 157, 88, .12);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-top: 2px;
+    /* Subtle inset shadow biar keliatan "slot"-nya */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+.cdt-progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    /* Gradient base warna */
+    background: linear-gradient(90deg,
+            var(--green-light) 0%,
+            var(--green) 50%,
+            var(--green-light) 100%);
+    background-size: 200% 100%;
+    /* Smooth width via JS, shimmer via CSS */
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: progressShimmer 2.4s ease-in-out infinite;
+    /* Kilap tipis di atas */
+    box-shadow: 0 1px 4px rgba(15, 157, 88, .35),
+        inset 0 1px 0 rgba(255, 255, 255, .4);
+    position: relative;
+}
+
+.cdt-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 10px;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ─────────────────────────────
+   Kolom kanan — 1 item: waktu berikutnya
+───────────────────────────── */
+.cdt-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, .55);
+    border: var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Label kecil "berikutnya" di atas */
+.cdt-right-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--text-light);
+    line-height: 1;
+}
+
+.cdt-prayer-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.cdt-prayer-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+}
+
+.cdt-prayer-time {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+    line-height: 1;
+}
+
+/* ── RESPONSIVE COUNTDOWN ── */
+@media (max-width: 640px) {
+    #sectionCountdown .section-head {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .cdt-wrap {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .cdt-left {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        padding: 10px 16px;
+    }
+
+    .cdt-period-icon {
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    /* Di mobile, right jadi row sejajar center */
+    .cdt-right {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px 18px;
+        min-width: unset;
+        gap: 10px;
+    }
+
+    .cdt-right-label {
+        display: none;
+    }
+
+    .cdt-prayer-icon {
+        font-size: 22px;
+    }
+
+    .cdt-prayer-time {
+        font-size: 18px;
+    }
+
+    .cdt-digits {
+        font-size: clamp(28px, 10vw, 42px);
+        padding: 8px 16px;
+    }
+
+    .cdt-clock-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE (original)
+   ════════════════════════════════════════ */
 @media (min-width: 481px) and (max-width: 900px) {
     .loader-mascot-wrap {
         margin-bottom: clamp(16px, 3vw, 24px)
     }
 }
 
-/* Desktop besar (≥1280px) */
 @media (min-width: 1280px) {
     .loader-mascot {
         width: 200px;
@@ -1010,7 +1339,6 @@ footer {
     }
 }
 
-/* Table responsive */
 @media (max-width: 600px) {
 
     thead th,

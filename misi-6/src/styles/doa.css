@@ -2,3 +2,65 @@
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
  }
+
+ /* =============================================
+   doa.css — Doa Sahur & Buka Puasa
+   ============================================= */
+
+ /* ── Tombol Kembali – Hijau ── */
+ .btn-kembali-green {
+     margin-top: 24px;
+     padding: 10px 24px;
+     background: linear-gradient(180deg, #1db864 0%, #0c8a4a 100%);
+     color: white;
+     font-family: 'Poppins', sans-serif;
+     font-size: 0.88rem;
+     font-weight: 700;
+     border: none;
+     border-radius: 12px;
+     cursor: pointer;
+     white-space: nowrap;
+     transform: translateY(0);
+     box-shadow: 0 6px 0 #076b38, 0 8px 16px rgba(15, 157, 88, 0.35);
+     transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+ }
+
+ .btn-kembali-green:hover {
+     filter: brightness(1.08);
+     transform: translateY(-2px);
+     box-shadow: 0 8px 0 #076b38, 0 12px 20px rgba(15, 157, 88, 0.4);
+ }
+
+ .btn-kembali-green:active {
+     transform: translateY(4px);
+     box-shadow: 0 2px 0 #076b38, 0 4px 8px rgba(15, 157, 88, 0.25);
+ }
+
+ /* ── Tombol Kembali – Emas ── */
+ .btn-kembali-gold {
+     margin-top: 24px;
+     padding: 10px 24px;
+     background: linear-gradient(180deg, #f0c040 0%, #b8860b 100%);
+     color: white;
+     font-family: 'Poppins', sans-serif;
+     font-size: 0.88rem;
+     font-weight: 700;
+     border: none;
+     border-radius: 12px;
+     cursor: pointer;
+     white-space: nowrap;
+     transform: translateY(0);
+     box-shadow: 0 6px 0 #8a6400, 0 8px 16px rgba(212, 175, 55, 0.4);
+     transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+ }
+
+ .btn-kembali-gold:hover {
+     filter: brightness(1.08);
+     transform: translateY(-2px);
+     box-shadow: 0 8px 0 #8a6400, 0 12px 20px rgba(212, 175, 55, 0.5);
+ }
+
+ .btn-kembali-gold:active {
+     transform: translateY(4px);
+     box-shadow: 0 2px 0 #8a6400, 0 4px 8px rgba(212, 175, 55, 0.25);
+ }

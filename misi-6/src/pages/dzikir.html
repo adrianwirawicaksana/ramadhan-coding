@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="loader-basepath" content="../">
     <title>Hitung Dzikir</title>
     <!-- TAILWIND CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,6 +19,7 @@
     <!-- IMPORT FOR COMPONENTS -->
     <script src="../components/navbar.js" defer></script>
     <script src="../components/footer.js" defer></script>
+    <script src="../components/loader.js" defer></script>
 </head>
 
 <body class="min-h-screen bg-gradient-to-br from-[#F6F3E9] via-[#F8F5EE] to-[#F1ECE2] text-[#1F2937] font-sans">
@@ -37,7 +39,7 @@
                 <img src="../assets/dzikir/Dzikir.webp" alt="Gambar Dzikir"
                     class="w-full max-w-sm aspect-square object-cover rounded-xl" />
                 <p class="text-xl md:text-2xl font-['Poppins'] font-medium text-green-900">
-                    Klik untuk hitung dzikir
+                    Klik untuk <strong>hitung dzikir</strong>
                 </p>
             </section>
 
@@ -56,7 +58,7 @@
                         <div class="w-16 h-1 bg-[#0F9D58] rounded-full mt-2"></div>
                     </div>
                     <button onclick="toggleBack('dzikir-main')" class="px-4 py-2 bg-[#0F9D58] text-white font-['Poppins'] text-sm rounded-lg
-                        hover:opacity-90 transition whitespace-nowrap">
+                        hover:opacity-90 transition whitespace-nowrap btn-kembali-green">
                         Kembali
                     </button>
                 </div>
@@ -161,14 +163,14 @@
 
                     <!-- BUTTONS 50:50 -->
                     <div class="grid grid-cols-2 gap-3">
-                        <button onclick="zikirAdd()" id="btnZikirAdd" class="btn-3d-green w-full py-4 sm:py-5 bg-[#0F9D58] text-white
+                        <button onclick="zikirAdd()" id="btnZikirAdd" class="btn-3d-green w-full py-4 sm:py-5 bg-[linear-gradient(180deg,#0F9D58_0%,#0a7a44_100%)] text-white
                             font-['Poppins'] rounded-2xl flex flex-col justify-center items-center gap-0.5">
                             <span class="text-3xl sm:text-4xl font-bold leading-none">+</span>
                             <span class="text-xs sm:text-sm font-semibold tracking-widest uppercase">Tambah</span>
                         </button>
-                        <button onclick="zikirReset()" class="btn-3d-white w-full py-4 sm:py-5 bg-white/80 border-2 border-[#0F9D58]/40
-                            text-[#0F9D58] text-base sm:text-lg font-['Poppins'] font-semibold rounded-2xl">
-                            ↺ Reset
+                        <button onclick="zikirReset()" class="btn-3d-white w-full py-4 sm:py-5 bg-[linear-gradient(180deg,#FF8C2A_0%,#E06010_100%)] border-1 border-[#0F9D58]/40
+                            text-white text-base sm:text-lg font-['Poppins'] font-semibold rounded-2xl">
+                            ↺ RESET
                         </button>
                     </div>
                 </div>
@@ -185,6 +187,7 @@
 
     <!-- JS -->
     <script src="../js/dzikir.js"></script>
+
 </body>
 
 </html>

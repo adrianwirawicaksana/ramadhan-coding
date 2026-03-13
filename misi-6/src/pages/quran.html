@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Al-Quran — Portal Ramadhan</title>
+    <meta name="loader-basepath" content="../">
+    <!-- FAVICON ICO -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- FONTS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap"
+        rel="stylesheet" />
+    <!-- TAILWIND CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="../styles/quran.css" />
+    <link rel="stylesheet" href="../global.css" />
+    <!-- IMPORT FOR COMPONENTS -->
+    <script src="../components/navbar.js" defer></script>
+    <script src="../components/footer.js" defer></script>
+    <script src="../components/loader.js" defer></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <site-navbar page="quran" basepath="../"></site-navbar>
+
+    <!-- MAIN -->
+    <main style="height:100vh; overflow:hidden; display:flex; flex-direction:column;">
+        <div class="quran-app" id="quranApp" style="flex:1; min-height:0;">
+
+            <!-- Overlay mobile -->
+            <div class="q-overlay" id="qOverlay"></div>
+
+            <!-- SIDEBAR -->
+            <aside class="q-sidebar pt-[60px]" id="qSidebar">
+                <div class="q-sidebar-head">
+                    <div class="q-sidebar-title">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                        </svg>
+                        Daftar Surat &amp; Juz
+                    </div>
+                    <div class="q-search">
+                        <span class="q-search-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.2">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                        </span>
+                        <input type="text" id="qSearch" placeholder="Cari nama surat, arti…" />
+                    </div>
+                    <div class="q-tabs">
+                        <button class="q-tab active" data-tab="surat">Surat</button>
+                        <button class="q-tab" data-tab="juz">Juz</button>
+                    </div>
+                </div>
+                <div class="q-sidebar-list" id="qList">
+                    <div class="q-loader">
+                        <div class="q-spinner"></div>Memuat…
+                    </div>
+                </div>
+            </aside>
+
+            <!-- MAIN -->
+            <div class="q-main pt-16">
+
+                <!-- Mobile toggle bar -->
+                <div class="q-mobile-toggle">
+                    <button id="qToggleBtn" onclick="toggleSidebar()">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2">
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                        Pilih Surat
+                    </button>
+                    <span class="q-cur-surah" id="qCurLabel"></span>
+                </div>
+
+                <!-- Scrollable content -->
+                <div class="q-content" id="qContent">
+
+                    <!-- Welcome -->
+                    <div class="q-welcome" id="qWelcome">
+                        <div class="q-welcome-icon">📖</div>
+                        <h2>Baca Al-Quran</h2>
+                        <p>Pilih surat atau juz dari panel kiri. Tersedia teks Arab, transliterasi, terjemahan
+                            Indonesia, dan audio murottal.</p>
+                        <div class="q-welcome-hint">
+                            <span class="q-hint-chip">114 Surat</span>
+                            <span class="q-hint-chip">30 Juz</span>
+                            <span class="q-hint-chip">6 Qari</span>
+                            <span class="q-hint-chip">Audio per Ayat</span>
+                        </div>
+                    </div>
+
+                    <!-- Surah view -->
+                    <div id="qView" style="display:none;flex-direction:column">
+                        <div class="q-surah-head" id="qHead"></div>
+                        <div class="q-ayat-wrap" id="qAyatWrap"></div>
+                    </div>
+
+                </div>
+
+                <!-- Mini player -->
+                <div class="q-mini" id="qMini">
+                    <div class="q-mini-info">
+                        <div class="q-mini-surah" id="qMiniSurah">—</div>
+                        <div class="q-mini-ayat" id="qMiniAyat">—</div>
+                    </div>
+                    <div class="q-mini-bar">
+                        <input type="range" class="q-mini-progress" id="qMiniProg" min="0" max="100" value="0" />
+                        <span class="q-mini-time" id="qMiniTime">0:00</span>
+                    </div>
+                    <div class="q-mini-ctrl">
+                        <button class="btn-aud" id="qMiniPrev" title="Ayat sebelumnya">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
+                            </svg>
+                        </button>
+                        <button class="btn-aud play-btn" id="qMiniPlay">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" id="qMiniIcon">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </button>
+                        <button class="btn-aud" id="qMiniNext" title="Ayat berikutnya">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 18 14.5 12 6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z" />
+                            </svg>
+                        </button>
+                        <button class="btn-aud" id="qMiniClose" title="Tutup">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Toast -->
+                <div class="q-toast" id="qToast"></div>
+            </div>
+
+        </div>
+
+        <audio id="qAudio"></audio>
+    </main>
+
+    <!-- FOOTER -->
+    <site-footer quote="Sebaik-baik kalian adalah orang yang mempelajari Al-Quran dan mengajarkannya"
+        source="HR. Bukhari"></site-footer>
+
+    <!-- JS -->
+    <script src="../js/quran.js"></script>
+
+</body>
+
+</html>

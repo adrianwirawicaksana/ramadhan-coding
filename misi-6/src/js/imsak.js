@@ -6,7 +6,16 @@
 
 /* ── CONSTANTS ── */
 const BASE_URL = 'https://api.myquran.com/v2/sholat';
-const TODAY = new Date().toISOString().split('T')[0];
+
+function _localDate() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+}
+
+const TODAY = _localDate();
 const TAHUN = new Date().getFullYear();
 const BULAN = new Date().getMonth() + 1;
 
@@ -47,20 +56,17 @@ const loaderText = document.getElementById('loaderText');
    UI HELPERS
    ════════════════════════════════════════ */
 
-/** Show one state panel, hide the rest */
 function showState(active) {
     [stateLoading, stateError, stateEmpty, tableWrap, todayBar]
         .forEach(el => el.classList.remove('show'));
     if (active) active.classList.add('show');
 }
 
-/** Show full-screen loading overlay */
 function showLoader(msg) {
     loaderText.textContent = msg || 'Memuat…';
     pageLoader.classList.add('show');
 }
 
-/** Hide full-screen loading overlay */
 function hideLoader() {
     pageLoader.classList.remove('show');
 }
@@ -91,7 +97,6 @@ async function loadCities() {
             CITY_NAME_MAP[id] = bersih;
         });
 
-        // Sort: provinsi A-Z → nama kota A-Z → Kota before Kabupaten
         CITIES.sort((a, b) =>
             a.p.localeCompare(b.p, 'id') ||
             a.n.localeCompare(b.n, 'id') ||
@@ -132,7 +137,6 @@ async function retryLoadCities() {
    ════════════════════════════════════════ */
 let dropdownHighlight = -1;
 
-/** Build and show the dropdown with a filtered city list */
 function buildDropdown(list) {
     const dd = document.getElementById('cityDropdown');
 
@@ -142,7 +146,6 @@ function buildDropdown(list) {
         return;
     }
 
-    // Group by province
     const byProv = {};
     list.forEach(c => {
         if (!byProv[c.p]) byProv[c.p] = [];
@@ -168,14 +171,12 @@ function buildDropdown(list) {
     dropdownHighlight = -1;
 }
 
-/** Open dropdown: show full list or search results */
 function showDropdown() {
     const q = document.getElementById('citySearch').value.trim();
     if (!q) buildDropdown(CITIES);
     else onSearch();
 }
 
-/** Filter dropdown while typing */
 function onSearch() {
     const q = document.getElementById('citySearch').value.trim().toLowerCase();
     document.getElementById('searchClear').classList.toggle('show', q.length > 0);
@@ -188,7 +189,6 @@ function onSearch() {
     );
 }
 
-/** Clear search input and reset dropdown */
 function clearSearch() {
     document.getElementById('citySearch').value = '';
     document.getElementById('searchClear').classList.remove('show');
@@ -196,7 +196,6 @@ function clearSearch() {
     document.getElementById('citySearch').focus();
 }
 
-/** Keyboard nav: Arrow keys + Enter + Escape */
 function onSearchKey(e) {
     const items = document.querySelectorAll('#cityDropdown .cd-item');
     if (e.key === 'ArrowDown') {
@@ -225,7 +224,6 @@ function closeDropdown() {
     dropdownHighlight = -1;
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('mousedown', e => {
     if (!document.getElementById('citySearch').closest('.search-wrap').contains(e.target))
         closeDropdown();
@@ -251,15 +249,15 @@ function selectCity(id) {
 async function fetchJadwal() {
     showState(stateLoading);
     showLoader('Memuat data jadwal…');
+    hideCountdown();
 
-    // Race-condition guard: only the latest request wins
     const seq = ++fetchSeq;
     const kotaSnap = currentKota;
     const url = `${BASE_URL}/jadwal/${kotaSnap}/${TAHUN}/${BULAN}`;
 
     try {
         const [res] = await Promise.all([fetch(url), sleep(1200)]);
-        if (seq !== fetchSeq) return; // stale response, discard
+        if (seq !== fetchSeq) return;
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const json = await res.json();
@@ -280,7 +278,6 @@ async function fetchJadwal() {
     }
 }
 
-/** Called by "Coba Lagi" button */
 function retryFetch() {
     if (currentKota) fetchJadwal();
 }
@@ -289,7 +286,6 @@ function retryFetch() {
    RENDER TABLE
    ════════════════════════════════════════ */
 function renderTable(data, kotaSnap) {
-    // Update kota chip
     const city = CITIES.find(c => c.id === kotaSnap);
     kotaBadge.textContent = city ? city.t : '—';
     kotaNama.textContent = data.lokasi ? toTitleCase(data.lokasi) : (city?.n || '—');
@@ -305,7 +301,6 @@ function renderTable(data, kotaSnap) {
 
     const todayRow = jadwal.find(j => j.date === TODAY);
 
-    // Build table rows
     const badge = t => `<span class="time-badge">${t}</span>`;
     jadwalBody.innerHTML = jadwal.map(j => `
         <tr class="${j.date === TODAY ? 'today-row' : ''}">
@@ -318,7 +313,6 @@ function renderTable(data, kotaSnap) {
             <td>${badge(j.isya)}</td>
         </tr>`).join('');
 
-    // Today bar
     if (todayRow) {
         todayBarText.textContent = `Hari ini — ${todayRow.tanggal} — ditandai hijau`;
         todayBar.classList.add('show');
@@ -327,7 +321,12 @@ function renderTable(data, kotaSnap) {
     showState(null);
     tableWrap.classList.add('show');
 
-    // Swipe hint (mobile only, auto-hides after 4s or on scroll)
+    if (todayRow) {
+        startCountdown(todayRow);
+    } else {
+        hideCountdown();
+    }
+
     if (window.innerWidth < 700) {
         const hint = document.getElementById('swipeHintTable');
         hint.classList.add('show');
@@ -340,7 +339,6 @@ function renderTable(data, kotaSnap) {
         setTimeout(hide, 4000);
     }
 
-    // Scroll today row into view
     if (todayRow) {
         setTimeout(() => {
             const tr = jadwalBody.querySelector('.today-row');
@@ -350,10 +348,199 @@ function renderTable(data, kotaSnap) {
 }
 
 /* ════════════════════════════════════════
+   COUNTDOWN — DATA
+   ════════════════════════════════════════ */
+const PRAYERS = [
+    { key: 'imsak', label: 'Imsak', icon: '🌙' },
+    { key: 'subuh', label: 'Subuh', icon: '🌅' },
+    { key: 'dzuhur', label: 'Dzuhur', icon: '☀️' },
+    { key: 'ashar', label: 'Ashar', icon: '🌤️' },
+    { key: 'maghrib', label: 'Maghrib', icon: '🌆' },
+    { key: 'isya', label: 'Isya', icon: '🌃' },
+];
+
+let _cdInterval = null;
+let _cdSchedule = null;
+
+function timeToSec(t) {
+    const [h, m] = t.split(':').map(Number);
+    return h * 3600 + m * 60;
+}
+
+function nowSec() {
+    const d = new Date();
+    return d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+}
+
+function fmtSec(s) {
+    const hh = String(Math.floor(s / 3600)).padStart(2, '0');
+    const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+    const ss = String(s % 60).padStart(2, '0');
+    return `${hh}:${mm}:${ss}`;
+}
+
+/* Format tanggal Indonesia */
+function formatTanggalHariIni() {
+    const d = new Date();
+    const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const BULAN_ID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    return {
+        hari: HARI[d.getDay()],
+        full: `${d.getDate()} ${BULAN_ID[d.getMonth()]} ${d.getFullYear()}`
+    };
+}
+
+/* ── SVG icon jam inline ── */
+const CLOCK_SVG = `
+<svg class="cdt-clock-icon" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- Lingkaran luar -->
+  <circle cx="12" cy="12" r="10"
+          stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <!-- Tanda jam 12 -->
+  <line x1="12" y1="3.5" x2="12" y2="5.5"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 3 -->
+  <line x1="20.5" y1="12" x2="18.5" y2="12"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 6 -->
+  <line x1="12" y1="20.5" x2="12" y2="18.5"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Tanda jam 9 -->
+  <line x1="3.5" y1="12" x2="5.5" y2="12"
+        stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- Jarum menit (panjang) — berputar via CSS -->
+  <line class="clock-hand-minute"
+        x1="12" y1="12" x2="12" y2="4.5"
+        stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Jarum jam (pendek) — berputar lebih lambat via CSS -->
+  <line class="clock-hand-hour"
+        x1="12" y1="12" x2="16" y2="12"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- Titik tengah -->
+  <circle cx="12" cy="12" r="1.2" fill="currentColor"/>
+</svg>`;
+
+/* ════════════════════════════════════════
+   COUNTDOWN — INIT & DESTROY
+   ════════════════════════════════════════ */
+function startCountdown(scheduleRow) {
+    _cdSchedule = scheduleRow;
+
+    const times = PRAYERS.map(p => ({
+        ...p,
+        sec: timeToSec(scheduleRow[p.key]),
+        rawTime: scheduleRow[p.key],
+    }));
+
+    /* Inject tanggal ke section-head */
+    _renderDatePill();
+
+    const sec = document.getElementById('sectionCountdown');
+    sec.style.display = '';
+    sec.style.opacity = '0';
+    sec.style.transform = 'translateY(18px)';
+    requestAnimationFrame(() => {
+        sec.style.transition = 'opacity .5s ease, transform .5s ease';
+        sec.style.opacity = '1';
+        sec.style.transform = 'translateY(0)';
+    });
+
+    if (_cdInterval) clearInterval(_cdInterval);
+    _cdTick(times);
+    _cdInterval = setInterval(() => _cdTick(times), 1000);
+}
+
+function hideCountdown() {
+    if (_cdInterval) { clearInterval(_cdInterval); _cdInterval = null; }
+    _cdSchedule = null;
+    const sec = document.getElementById('sectionCountdown');
+    sec.style.display = 'none';
+}
+
+/* ── Render pill tanggal di section-head ── */
+function _renderDatePill() {
+    const head = document.querySelector('#sectionCountdown .section-head');
+    if (!head) return;
+
+    /* Hapus pill lama kalau ada */
+    const old = head.querySelector('.cdt-date-pill');
+    if (old) old.remove();
+
+    const { hari, full } = formatTanggalHariIni();
+    const pill = document.createElement('div');
+    pill.className = 'cdt-date-pill';
+    pill.innerHTML = `
+        <span class="cdt-date-day">${hari}</span>
+        <span class="cdt-date-full">${full}</span>`;
+    head.appendChild(pill);
+}
+
+/* ════════════════════════════════════════
+   COUNTDOWN — TICK
+   ════════════════════════════════════════ */
+function _cdTick(times) {
+    const now = nowSec();
+
+    let nextIdx = times.findIndex(p => p.sec > now);
+
+    let prev, next;
+
+    if (nextIdx === -1) {
+        prev = times[times.length - 1];
+        next = { ...times[0], sec: times[0].sec + 86400, label: 'Imsak (Esok)' };
+    } else if (nextIdx === 0) {
+        prev = { label: 'Tengah Malam', icon: '🌑', sec: 0, rawTime: '00:00' };
+        next = times[0];
+    } else {
+        prev = times[nextIdx - 1];
+        next = times[nextIdx];
+    }
+
+    const remaining = next.sec - now;
+    const total = next.sec - prev.sec;
+    const elapsed = total - remaining;
+    const progress = Math.min(100, Math.max(0, (elapsed / total) * 100));
+
+    /* Update kolom kiri */
+    document.getElementById('cdtPeriodIcon').textContent = prev.icon || '🕌';
+    document.getElementById('cdtPeriodName').textContent = `Waktu ${prev.label}`;
+    document.getElementById('cdtPeriodTime').textContent = prev.rawTime || '—';
+
+    /* Update kolom tengah */
+    document.getElementById('cdtNextLabel').textContent = `Menuju ${next.label}`;
+
+    /* ── Timer row: icon jam + digits ── */
+    document.getElementById('cdtTimer').innerHTML =
+        `<div class="cdt-timer-row">
+            ${CLOCK_SVG}
+            <span>${fmtSec(remaining)}</span>
+        </div>`;
+
+    document.getElementById('cdtNextTime').textContent = next.rawTime ? `pukul ${next.rawTime}` : '';
+
+    /* Progress bar — width di-set JS, animasi shimmer via CSS */
+    document.getElementById('cdtProgressFill').style.width = `${progress}%`;
+    document.getElementById('cdtProgStart').textContent = `${prev.label} ${prev.rawTime || ''}`;
+    document.getElementById('cdtProgEnd').textContent = `${next.label} ${next.rawTime || ''}`;
+
+    /* Update kolom kanan — 1 item saja: waktu BERIKUTNYA */
+    document.getElementById('cdtPrayerList').innerHTML = `
+        <div class="cdt-right-label">Berikutnya</div>
+        <div class="cdt-prayer-icon">${next.icon || '🕌'}</div>
+        <div class="cdt-prayer-name">${next.label}</div>
+        <div class="cdt-prayer-time">${next.rawTime || '—'}</div>`;
+}
+
+/* ════════════════════════════════════════
+   COUNTDOWN — RENDER PRAYER LIST (tidak dipakai, tapi dibiarkan)
+   ════════════════════════════════════════ */
+function renderPrayerList() { /* digantikan oleh _cdTick */ }
+
+/* ════════════════════════════════════════
    GEOLOCATION
    ════════════════════════════════════════ */
-
-/** Haversine distance between two lat/lng points (km) */
 function deg2rad(d) { return d * Math.PI / 180 }
 function haversine(la1, ln1, la2, ln2) {
     const R = 6371;
@@ -364,7 +551,6 @@ function haversine(la1, ln1, la2, ln2) {
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-/** Approximate coordinates of major Indonesian cities (fallback) */
 const CITY_COORDS = {
     'BANDA ACEH': [5.5577, 95.3222], 'MEDAN': [3.5897, 98.6728], 'PADANG': [-0.9492, 100.3543],
     'PEKANBARU': [0.5071, 101.4478], 'BATAM': [1.13, 104.02], 'JAMBI': [-1.6101, 103.6131],
@@ -387,7 +573,6 @@ const CITY_COORDS = {
     'TERNATE': [0.7833, 127.3667], 'SORONG': [-0.8617, 131.252], 'JAYAPURA': [-2.5337, 140.7181],
 };
 
-/** Find nearest city from CITY_COORDS by haversine distance */
 function nearestCity(lat, lng) {
     if (!CITIES.length) return null;
     let best = null, bestDist = Infinity;
@@ -401,7 +586,6 @@ function nearestCity(lat, lng) {
     return best || CITIES[0];
 }
 
-/** Reverse geocode via Nominatim (OpenStreetMap) */
 async function reverseGeocode(lat, lng) {
     const res = await fetch(
         `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`,
@@ -416,7 +600,6 @@ async function reverseGeocode(lat, lng) {
     };
 }
 
-/** Match a Nominatim geo result to a city in CITIES list */
 function matchCityFromGeo(geo) {
     function find(clean) {
         if (!clean || clean.length < 3) return null;
@@ -441,7 +624,6 @@ function matchCityFromGeo(geo) {
     return null;
 }
 
-/** Called when user clicks "Izinkan Lokasi" */
 function allowGeo() {
     document.getElementById('geoModal').classList.remove('show');
     showLoader('Mendeteksi lokasi Anda…');
@@ -449,7 +631,6 @@ function allowGeo() {
     navigator.geolocation.getCurrentPosition(
         async pos => {
             try {
-                // Wait for cities to load (max 5s)
                 let waited = 0;
                 while (CITIES.length === 0 && waited < 5000) { await sleep(200); waited += 200; }
 
@@ -460,7 +641,7 @@ function allowGeo() {
                     city = matchCityFromGeo(
                         await reverseGeocode(pos.coords.latitude, pos.coords.longitude)
                     );
-                } catch (_) { /* fallback to haversine below */ }
+                } catch (_) { /* fallback */ }
 
                 if (!city) city = nearestCity(pos.coords.latitude, pos.coords.longitude);
 
@@ -479,7 +660,6 @@ function allowGeo() {
     );
 }
 
-/** Called when user clicks "Lewati" */
 function skipGeo() {
     document.getElementById('geoModal').classList.remove('show');
 }
@@ -488,18 +668,14 @@ function skipGeo() {
    INIT
    ════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', async () => {
-    // Show empty state
     showState(stateEmpty);
 
-    // Staggered entrance animations
     document.querySelectorAll('.anim-hidden').forEach((el, i) => {
         setTimeout(() => el.classList.add('anim-visible'), 100 + i * 150);
     });
 
-    // Load city list from API
     await loadCities();
 
-    // Show geo permission modal after short delay
     if ('geolocation' in navigator) {
         setTimeout(() => document.getElementById('geoModal').classList.add('show'), 400);
     }

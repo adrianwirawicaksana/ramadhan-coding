@@ -21,9 +21,9 @@ const shalatItems = [
 ];
 
 const dzikirData = [
-    { id: 'subhanallah', name: 'Subhanallah', arabic: 'سُبْحَانَ اللهِ', target: 30 },
-    { id: 'alhamdulillah', name: 'Alhamdulillah', arabic: 'اَلْحَمْدُ لِلَّهِ', target: 30 },
-    { id: 'allahuakbar', name: 'Allahu Akbar', arabic: 'اَللهُ أَكْبَرُ', target: 30 },
+    { id: 'subhanallah', name: 'Subhanallah', arabic: 'سُبْحَانَ اللهِ', target: 33 },
+    { id: 'alhamdulillah', name: 'Alhamdulillah', arabic: 'اَلْحَمْدُ لِلَّهِ', target: 33 },
+    { id: 'allahuakbar', name: 'Allahu Akbar', arabic: 'اَللهُ أَكْبَرُ', target: 33 },
     { id: 'istighfar', name: 'Istighfar', arabic: 'أَسْتَغْفِرُ اللهَ', target: 70 },
     { id: 'lailahaillallah', name: 'Lailahaillallah', arabic: 'لَا إِلَٰهَ إِلَّا ٱللَّٰهُ', target: 100 },
 ];
