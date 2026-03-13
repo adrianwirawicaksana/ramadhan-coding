@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="loader-basepath" content="../">
+    <title>Kalkulator Zakat</title>
+    <!-- TAILWIND CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FONTS -->
+    <link href="https://fonts.cdnfonts.com/css/poppins" rel="stylesheet">
+    <!-- FAVICON ICO -->
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico">
+    <!-- STYLES -->
+    <link rel="stylesheet" href="../global.css" />
+    <link rel="stylesheet" href="../styles/zakat.css" />
+    <!-- IMPORT FROM COMPONENTS -->
+    <script src="../components/navbar.js" defer></script>
+    <script src="../components/footer.js" defer></script>
+    <script src="../components/loader.js" defer></script>
+    <!-- TAILWIND CONFIG -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        green: {
+                            dark: '#0F9D58',
+                            mid: '#34D399',
+                            light: '#A7F3D0',
+                            deep: '#0a7a44',
+                        },
+                        cream: '#FEF9C3',
+                        lime: '#D9F99D',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body
+    class="font-poppins min-h-screen bg-gradient-to-br from-[#F6F3E9] via-[#F8F5EE] to-[#F1ECE2] overflow-x-hidden relative">
+
+    <!-- NAVBAR -->
+    <site-navbar page="zakat" basepath="../"></site-navbar>
+
+    <!-- CARD MAIN -->
+    <main class="relative z-10 max-w-3xl mx-auto px-5 mb-12 pt-32 grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+        <!-- Card: Penghasilan -->
+        <div class="card" onclick="openModal('penghasilan')">
+            <div class="card-icon">💼</div>
+            <h3 class="text-base font-bold text-emerald-950 leading-snug">Zakat Penghasilan</h3>
+            <p class="text-xs text-emerald-700 leading-relaxed flex-1">Hitung zakat dari gaji dan penghasilan lain-lain
+                per bulan beserta nisab</p>
+            <button class="card-btn">HITUNG SEKARANG</button>
+        </div>
+
+        <!-- Card: Perusahaan -->
+        <div class="card" onclick="openModal('perusahaan')">
+            <div class="card-icon">🏢</div>
+            <h3 class="text-base font-bold text-emerald-950 leading-snug">Zakat Perusahaan</h3>
+            <p class="text-xs text-emerald-700 leading-relaxed flex-1">Kategori jasa atau dagang/industri berdasarkan
+                aset dan pendapatan usaha</p>
+            <button class="card-btn">HITUNG SEKARANG</button>
+        </div>
+
+        <!-- Card: Perdagangan -->
+        <div class="card" onclick="openModal('perdagangan')">
+            <div class="card-icon">🛒</div>
+            <h3 class="text-base font-bold text-emerald-950 leading-snug">Zakat Perdagangan</h3>
+            <p class="text-xs text-emerald-700 leading-relaxed flex-1">Hitung zakat dari aset lancar dan laba usaha
+                perdagangan per tahun</p>
+            <button class="card-btn">HITUNG SEKARANG</button>
+        </div>
+
+        <!-- Card: Emas -->
+        <div class="card" onclick="openModal('emas')">
+            <div class="card-icon">🪙</div>
+            <h3 class="text-base font-bold text-emerald-950 leading-snug">Zakat Emas</h3>
+            <p class="text-xs text-emerald-700 leading-relaxed flex-1">Hitung zakat kepemilikan emas beserta nilai nisab
+                per tahun</p>
+            <button class="card-btn">HITUNG SEKARANG</button>
+        </div>
+
+    </main>
+
+    <!-- MODAL: PENGHASILAN -->
+    <div class="modal-overlay" id="modal-penghasilan">
+        <div class="modal-box modal-scroll">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-extrabold text-green-dark">💼 Zakat Penghasilan</h2>
+                    <div class="w-9 h-0.5 bg-green-dark rounded-full mt-1"></div>
+                </div>
+                <button class="btn-back" onclick="closeModal('penghasilan')">KEMBALI</button>
+            </div>
+
+            <div class="info-box">
+                Nisab zakat penghasilan 2026 ditetapkan oleh <strong>SK Ketua BAZNAS No. 15 Tahun 2026</strong>:<br />
+                📅 <strong>Rp 91.681.728 / tahun</strong> &nbsp;|&nbsp; 🗓 <strong>Rp 7.640.144 / bulan</strong><br />
+                Setara 85 gram emas • Kadar zakat <strong>2,5%</strong>
+            </div>
+
+            <div class="field">
+                <label>Gaji per Bulan <span class="tag tag-req">Wajib</span></label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" inputmode="numeric" data-required="true" id="peng-gaji" class="currency"
+                        data-calc="autoCalcPenghasilan" placeholder="0" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Penghasilan Lain-lain per Bulan <span class="tag tag-opt">Opsional</span></label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" inputmode="numeric" id="peng-lain" class="currency"
+                        data-calc="autoCalcPenghasilan" placeholder="0" />
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="field field-auto">
+                <label>Jumlah Penghasilan per Bulan</label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" id="peng-jumlah" readonly placeholder="—" />
+                </div>
+            </div>
+
+            <div class="nisab-static">
+                <span class="nisab-label">Nisab / Bulan</span>
+                <span class="nisab-value">Rp 7.640.144</span>
+                <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+            </div>
+            <div class="nisab-static">
+                <span class="nisab-label">Nisab / Tahun</span>
+                <span class="nisab-value">Rp 91.681.728</span>
+                <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+            </div>
+
+            <button class="btn-hitung" onclick="hitungPenghasilan()">HITUNG ZAKAT</button>
+
+            <div class="result-box" id="res-penghasilan">
+                <div class="res-row"><span class="lbl">Gaji per Bulan</span><span class="val" id="rp-gaji">—</span>
+                </div>
+                <div class="res-row"><span class="lbl">Penghasilan Lain-lain</span><span class="val"
+                        id="rp-lain">—</span></div>
+                <div class="res-row"><span class="lbl">Jumlah Penghasilan / Bulan</span><span class="val"
+                        id="rp-jumlah">—</span></div>
+                <div class="res-row"><span class="lbl">Jumlah Penghasilan / Tahun</span><span class="val"
+                        id="rp-jumlah-tahun">—</span></div>
+                <div class="res-row"><span class="lbl">Nisab / Bulan (SK BAZNAS)</span><span class="val"
+                        id="rp-nisab-b">—</span></div>
+                <div class="res-row"><span class="lbl">Nisab / Tahun (SK BAZNAS)</span><span class="val"
+                        id="rp-nisab-t">—</span></div>
+                <div class="res-row"><span class="lbl">Status</span><span class="val" id="rp-status">—</span></div>
+                <div class="res-total"><span>Zakat / Bulan (2,5%)</span><span id="rp-zakat">—</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PERUSAHAAN -->
+    <div class="modal-overlay" id="modal-perusahaan">
+        <div class="modal-box modal-scroll">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-extrabold text-green-dark">🏢 Zakat Perusahaan</h2>
+                    <div class="w-9 h-0.5 bg-green-dark rounded-full mt-1"></div>
+                </div>
+                <button class="btn-back" onclick="closeModal('perusahaan')">KEMBALI</button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-2 mb-5">
+                <button class="tab-btn active" id="tab-jasa" onclick="switchTab('jasa')">Jasa</button>
+                <button class="tab-btn" id="tab-dagang" onclick="switchTab('dagang')">Dagang / Industri</button>
+            </div>
+
+            <!-- Panel Jasa -->
+            <div id="panel-jasa">
+                <div class="info-box">Nisab 2026 per <strong>SK BAZNAS No.15 Tahun 2026</strong>: <strong>Rp
+                        91.681.728/tahun</strong>. Kadar zakat jasa: <strong>2,5%</strong> dari pendapatan sebelum
+                    pajak.</div>
+                <div class="field">
+                    <label>Pendapatan Sebelum Pajak <span class="tag tag-req">Wajib</span></label>
+                    <div class="input-wrap">
+                        <span class="prefix">Rp</span>
+                        <input type="text" inputmode="numeric" data-required="true" id="jasa-pendapatan"
+                            class="currency" data-calc="autoCalcJasa" placeholder="0" />
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="nisab-static">
+                    <span class="nisab-label">Nisab / Tahun</span>
+                    <span class="nisab-value">Rp 91.681.728</span>
+                    <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+                </div>
+                <button class="btn-hitung" onclick="hitungJasa()">HITUNG ZAKAT</button>
+                <div class="result-box" id="res-jasa">
+                    <div class="res-row"><span class="lbl">Pendapatan Sebelum Pajak</span><span class="val"
+                            id="rj-pendapatan">—</span></div>
+                    <div class="res-row"><span class="lbl">Nisab / Tahun (SK BAZNAS)</span><span class="val"
+                            id="rj-nisab">—</span></div>
+                    <div class="res-row"><span class="lbl">Status</span><span class="val" id="rj-status">—</span></div>
+                    <div class="res-total"><span>Zakat (2,5%)</span><span id="rj-zakat">—</span></div>
+                </div>
+            </div>
+
+            <!-- Panel Dagang -->
+            <div id="panel-dagang" style="display:none">
+                <div class="info-box">Nisab 2026 per <strong>SK BAZNAS No.15 Tahun 2026</strong>: <strong>Rp
+                        91.681.728/tahun</strong>. <strong>Jumlah = Aktiva − Pasiva Lancar</strong>. Kadar zakat:
+                    <strong>2,5%</strong>.
+                </div>
+                <div class="field">
+                    <label>Aktiva Lancar <span class="tag tag-req">Wajib</span></label>
+                    <div class="input-wrap">
+                        <span class="prefix">Rp</span>
+                        <input type="text" inputmode="numeric" data-required="true" id="ind-aktiva" class="currency"
+                            data-calc="autoCalcDagang" placeholder="0" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Pasiva Lancar <span class="tag tag-opt">Opsional</span></label>
+                    <div class="input-wrap">
+                        <span class="prefix">Rp</span>
+                        <input type="text" inputmode="numeric" id="ind-pasiva" class="currency"
+                            data-calc="autoCalcDagang" placeholder="0" />
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="field field-auto">
+                    <label>Jumlah (Aktiva − Pasiva)</label>
+                    <div class="input-wrap">
+                        <span class="prefix">Rp</span>
+                        <input type="text" id="ind-jumlah" readonly placeholder="—" />
+                    </div>
+                </div>
+                <div class="nisab-static">
+                    <span class="nisab-label">Nisab / Tahun</span>
+                    <span class="nisab-value">Rp 91.681.728</span>
+                    <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+                </div>
+                <button class="btn-hitung" onclick="hitungDagang()">HITUNG ZAKAT</button>
+                <div class="result-box" id="res-dagang">
+                    <div class="res-row"><span class="lbl">Aktiva Lancar</span><span class="val" id="rd-aktiva">—</span>
+                    </div>
+                    <div class="res-row"><span class="lbl">Pasiva Lancar</span><span class="val" id="rd-pasiva">—</span>
+                    </div>
+                    <div class="res-row"><span class="lbl">Jumlah (Bersih)</span><span class="val"
+                            id="rd-jumlah">—</span></div>
+                    <div class="res-row"><span class="lbl">Nisab / Tahun (SK BAZNAS)</span><span class="val"
+                            id="rd-nisab">—</span></div>
+                    <div class="res-row"><span class="lbl">Status</span><span class="val" id="rd-status">—</span></div>
+                    <div class="res-total"><span>Zakat (2,5%)</span><span id="rd-zakat">—</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PERDAGANGAN -->
+    <div class="modal-overlay" id="modal-perdagangan">
+        <div class="modal-box modal-scroll">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-extrabold text-green-dark">🛒 Zakat Perdagangan</h2>
+                    <div class="w-9 h-0.5 bg-green-dark rounded-full mt-1"></div>
+                </div>
+                <button class="btn-back" onclick="closeModal('perdagangan')">KEMBALI</button>
+            </div>
+
+            <div class="info-box">Nisab 2026 per <strong>SK BAZNAS No.15 Tahun 2026</strong>: <strong>Rp
+                    91.681.728/tahun</strong>. <strong>Jumlah = Aset Lancar + Laba</strong>. Kadar zakat:
+                <strong>2,5%</strong>.
+            </div>
+
+            <div class="field">
+                <label>Aset Lancar <span class="tag tag-req">Wajib</span></label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" inputmode="numeric" data-required="true" id="dag-aset" class="currency"
+                        data-calc="autoCalcPerdagangan" placeholder="0" />
+                </div>
+            </div>
+            <div class="field">
+                <label>Laba <span class="tag tag-opt">Opsional</span></label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" inputmode="numeric" id="dag-laba" class="currency"
+                        data-calc="autoCalcPerdagangan" placeholder="0" />
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="field field-auto">
+                <label>Jumlah (Aset + Laba)</label>
+                <div class="input-wrap">
+                    <span class="prefix">Rp</span>
+                    <input type="text" id="dag-jumlah" readonly placeholder="—" />
+                </div>
+            </div>
+            <div class="nisab-static">
+                <span class="nisab-label">Nisab / Tahun</span>
+                <span class="nisab-value">Rp 91.681.728</span>
+                <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+            </div>
+            <button class="btn-hitung" onclick="hitungPerdagangan()">HITUNG ZAKAT</button>
+            <div class="result-box" id="res-perdagangan">
+                <div class="res-row"><span class="lbl">Aset Lancar</span><span class="val" id="rpd-aset">—</span></div>
+                <div class="res-row"><span class="lbl">Laba</span><span class="val" id="rpd-laba">—</span></div>
+                <div class="res-row"><span class="lbl">Jumlah</span><span class="val" id="rpd-jumlah">—</span></div>
+                <div class="res-row"><span class="lbl">Nisab / Tahun (SK BAZNAS)</span><span class="val"
+                        id="rpd-nisab">—</span></div>
+                <div class="res-row"><span class="lbl">Status</span><span class="val" id="rpd-status">—</span></div>
+                <div class="res-total"><span>Zakat (2,5%)</span><span id="rpd-zakat">—</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: EMAS -->
+    <div class="modal-overlay" id="modal-emas">
+        <div class="modal-box modal-scroll">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-extrabold text-green-dark">🪙 Zakat Emas</h2>
+                    <div class="w-9 h-0.5 bg-green-dark rounded-full mt-1"></div>
+                </div>
+                <button class="btn-back" onclick="closeModal('emas')">KEMBALI</button>
+            </div>
+
+            <div class="info-box">Nisab zakat emas = <strong>85 gram</strong>. Nilainya setara <strong>Rp
+                    91.681.728</strong> per <strong>SK BAZNAS No.15 Tahun 2026.</strong> Kadar zakat:
+                <strong>2,5%</strong> dari nilai
+                emas yang dimiliki.
+            </div>
+
+            <div class="field">
+                <label>Emas yang Dimiliki <span class="tag tag-req">Wajib</span></label>
+                <div class="input-wrap">
+                    <span class="prefix">gram</span>
+                    <input type="text" inputmode="decimal" data-required="true" id="em-berat" class="currency-gram"
+                        data-calc="autoCalcEmas" placeholder="0" />
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="nisab-static">
+                <span class="nisab-label">Nisab / Tahun</span>
+                <span class="nisab-value">85 gram</span>
+                <span class="nisab-src">SK Ketua BAZNAS No. 15 Tahun 2026</span>
+            </div>
+
+            <button class="btn-hitung" onclick="hitungEmas()">HITUNG ZAKAT</button>
+
+            <div class="result-box" id="res-emas">
+                <div class="res-row"><span class="lbl">Emas yang Dimiliki</span><span class="val" id="re-berat">—</span>
+                </div>
+                <div class="res-row"><span class="lbl">Nisab (SK BAZNAS)</span><span class="val" id="re-nisab">85
+                        gram</span></div>
+                <div class="res-row"><span class="lbl">Status</span><span class="val" id="re-status">—</span></div>
+                <div class="res-total"><span>Zakat (2,5%)</span><span id="re-zakat">—</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <site-footer
+        quote="Ambillah zakat dari sebagian harta mereka, dengan zakat itu kamu membersihkan dan mensucikan mereka."
+        source="QS. At-Taubah: 103">
+    </site-footer>
+
+    <!-- JS -->
+    <script src="../js/zakat.js"></script>
+
+</body>
+
+</html>
