@@ -1,6 +1,6 @@
 # 🌙 Ramadan Coding Challenge
 
-Website portal bertema Ramadan yang dibuat bertahap dengan menyelesaikan tiap misi hingga akhir demo, menggunakan HTML, Tailwind CSS (CDN), dan JavaScript.
+Website Portal bertema Ramadan yang dibuat bertahap dengan menyelesaikan tiap misi hingga akhir demo, menggunakan HTML, Tailwind CSS (CDN), dan JavaScript.
 
 ---
 
