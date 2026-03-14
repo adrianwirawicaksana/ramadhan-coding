@@ -2,18 +2,6 @@
    PORTAL RAMADHAN — loader.js
    Page loading overlay — animasi bounce mascot
    Sesuai style #pageLoader di global.css
-
-   CARA PAKAI:
-   1. Load script ini di <head> dengan defer:
-      <script src="../components/loader.js" defer></script>
-
-   2. Tidak perlu tambah HTML apapun — loader dibuat
-      otomatis oleh script ini.
-
-   ATRIBUT basepath (opsional, untuk path gambar):
-      Tambahkan meta tag di <head>:
-      <meta name="loader-basepath" content="../">
-      Default: "" (root)
    ===================================================== */
 
 (function () {
@@ -154,10 +142,16 @@
 
     document.body.insertBefore(loader, document.body.firstChild);
 
-    /* ── Sembunyikan setelah tepat 2 detik ── */
-    setTimeout(() => {
+    /* ── Sembunyikan ketika DOM sudah ready ── */
+    const hideLoader = () => {
         loader.classList.add('hide');
         loader.addEventListener('transitionend', () => loader.remove(), { once: true });
-    }, 2000);
+    };
+
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', hideLoader);
+    }
 
 })();
