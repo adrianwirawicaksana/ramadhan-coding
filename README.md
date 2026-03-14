@@ -1,6 +1,6 @@
 # 🌙 Ramadan Coding Challenge
 
-Website sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CDN), dan JavaScript.
+Website portal sederhana bertema Ramadan yang dibuat menggunakan HTML, Tailwind CSS (CDN), dan JavaScript.
 
 ---
 
