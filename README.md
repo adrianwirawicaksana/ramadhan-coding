@@ -25,7 +25,7 @@ ramadan-coding/
 │
 └── src/
     │
-    ├── assets/                     # Static assets                
+    ├── assets/                     # Multi asset                
     │
     ├── components/                 # Reusable HTML components
     │   ├── navbar.html             # Global navigation bar
