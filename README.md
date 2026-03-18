@@ -76,13 +76,12 @@ xdg-open src/index.html
 ---
 
 ## ⚙️ Tech Stack
-
-| Layer | Teknologi |
-|---|---|
-| Markup | HTML5 |
-| Styling | Tailwind CSS (CDN) |
-| Scripting | Vanilla JavaScript |
-| Deployment | Vercel |
+<p align="center"> <img src="https://skillicons.dev/icons?i=html,tailwind,js,vercel" /> </p>
+Layer	Teknologi
+Markup	HTML5
+Styling	Tailwind CSS (CDN)
+Scripting	Vanilla JavaScript
+Deployment	Vercel
 
 ---
 
