@@ -76,7 +76,7 @@ xdg-open src/index.html
 ---
 
 ## ⚙️ Tech Stack
-<p align="center"> <img src="https://skillicons.dev/icons?i=html,tailwind,js,vercel" /> </p>
+<p align="left"> <img src="https://skillicons.dev/icons?i=html,tailwind,js,vercel" /> </p>
 Layer	Teknologi
 Markup	HTML5
 Styling	Tailwind CSS (CDN)
